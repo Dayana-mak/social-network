@@ -1,0 +1,12 @@
+.nav {
+  grid-area: nav;
+  background-color: burlywood;
+}
+
+.link {
+  color: white;
+}
+
+.item {
+  color: white;
+}
