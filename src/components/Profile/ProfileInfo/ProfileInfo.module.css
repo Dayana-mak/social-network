@@ -1,0 +1,9 @@
+.profile__wrapper {
+  display: flex;
+  gap: 20px
+}
+
+.image {
+  width: 100px;
+  border-radius: 100%;
+}

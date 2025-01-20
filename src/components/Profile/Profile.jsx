@@ -1,12 +1,10 @@
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 function Profile() {
   return (
   <div>
-      Main Content
-      <div>
-        ava+decrption
-      </div>
+      <ProfileInfo />
       <MyPosts />
   </div>
   );
