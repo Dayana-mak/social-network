@@ -7,6 +7,10 @@
   color: white;
 }
 
+.active_link {
+  color: gold;
+}
+
 .item {
   color: white;
 }
