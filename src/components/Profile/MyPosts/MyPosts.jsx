@@ -10,8 +10,12 @@ function MyPosts() {
       <button>Addpost</button>
       </div>
       <div>
-        <Post />
-        <Post />
+        <Post 
+          text="Hey, why nobody love me?"
+          likesCount="10"/>
+        <Post 
+          text="It's our new program! Hey!"
+          likesCount="20"/>
       </div>
     </div>
   );

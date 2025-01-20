@@ -11,14 +11,17 @@ ul li {
   "nav content content";
   grid-template-rows: 1fr 2fr;
   grid-template-columns: 2fr 10fr;
-  grid-gap: 10px;
 }
 
-.content {
+.app-wrapper-content {
   grid-area: content;
   background-color: cornflowerblue;
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  color: black;
 }

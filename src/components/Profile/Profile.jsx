@@ -2,7 +2,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 function Profile() {
   return (
-  <div className='content'>
+  <div>
       Main Content
       <div>
         ava+decrption

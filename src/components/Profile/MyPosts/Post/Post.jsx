@@ -1,9 +1,10 @@
 import s from './Post.module.css'
 
-function Post() {
+function Post(props) {
   return (
     <div className={s.item}>
-      post 1
+      <p>{ props.text }</p>
+      <span>{props.likesCount} likes</span>
     </div>
   );
 }
