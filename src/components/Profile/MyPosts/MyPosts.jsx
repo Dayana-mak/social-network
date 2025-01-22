@@ -1,12 +1,9 @@
-
 import Post from './Post/Post';
 
-function MyPosts() {
-  let postData = [
-    {id: 1, text:"Hey, why nobody love me?", likesCount: 10},
-    {id: 2, text:"It's our new program! Hey!", likesCount: 20},
-    {id: 3, text:"I'm tired", likesCount: 200}
-  ]
+function MyPosts(props) {
+  const posts = props.posts;
+
+  const postsList = posts.map(post => <Post text={post.text} likesCount={post.likesCount}/>)
   return (
     <div>
       <h2>My Posts</h2>
@@ -15,7 +12,7 @@ function MyPosts() {
       <button>Addpost</button>
       </div>
       <ul>
-        { postData.map(post => <Post text={post.text} likesCount={post.likesCount}/>) }
+        { postsList }
       </ul>
     </div>
   );
