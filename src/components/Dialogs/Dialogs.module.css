@@ -3,10 +3,6 @@
   grid-template-columns: 2fr 10fr;
 }
 
-.dialogs__list {
-
-}
-
 .dialog {
   color: white;
 }

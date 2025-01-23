@@ -9,7 +9,7 @@ ul li {
   grid-template-areas:
   "header header header"
   "nav content content";
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 60px 2fr;
   grid-template-columns: 2fr 10fr;
 }
 
