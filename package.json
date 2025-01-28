@@ -4,11 +4,13 @@
   "private": true,
   "homepage": "https://dayana-mak.github.io/my-app",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
     "cra-template": "1.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.2",
     "react-scripts": "5.0.1",
+    "redux": "^5.0.1",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
