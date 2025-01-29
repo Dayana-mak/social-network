@@ -1,12 +1,12 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Dialogs from './components/Dialogs/Dialogs';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
+import UsersContainer from './components/Users/UsersContainer';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 function App(props) {
@@ -17,8 +17,9 @@ function App(props) {
         <Navbar />
         <div className="app-wrapper-content">
         <Routes>
-          <Route path="profile" element={<Profile store={props.store} /* profilePage={props.state.profilePage} dispatch={props.dispatch} *//>} />
-          <Route path="dialogs/*" element={<DialogsContainer store={props.store} /* dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} *//>} />
+          <Route path="profile" element={<Profile store={props.store} />} />
+          <Route path="dialogs/*" element={<DialogsContainer store={props.store}/>} />
+          <Route path="users/" element={<UsersContainer /> }/>
           <Route path="news" element={<News />} />
           <Route path="music" element={<Music />} />
           <Route path="settings" element={<Settings/>} />

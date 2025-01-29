@@ -11,6 +11,9 @@ function Navbar() {
         <li className={s.item}><NavLink className={setActive} to="/dialogs">Messages</NavLink></li>
         <li className={s.item}><NavLink className={setActive} to="/news">News</NavLink></li>
         <li className={s.item}><NavLink className={setActive} to="/music">Music</NavLink></li>
+        <br />
+        <li className={s.item}><NavLink className={setActive} to="/users">Find users</NavLink></li>
+        <br />
         <li className={s.item}><NavLink className={setActive} to="/settings">Settings</NavLink></li>
       </ul>
     </nav>
