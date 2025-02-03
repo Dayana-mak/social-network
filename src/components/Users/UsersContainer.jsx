@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, toggleIsLoadingAC, unfollowAC } from "../../redux/users-reducer";
+import { follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsLoading, unfollow } from "../../redux/users-reducer";
 import axios from "axios"
 import { Component } from "react";
 import Users from "./Users";
@@ -7,9 +7,9 @@ import Preloader from "../common/Preloader";
 
 class UsersContainer extends Component {
   componentDidMount() {
-    this.props.toggleisLoading(true);
+    this.props.toggleIsLoading(true);
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-      this.props.toggleisLoading(false);
+      this.props.toggleIsLoading(false);
       this.props.setUsers(response.data.items);
       /* this.props.setTotalUsersCount(response.data.totalCount); */
     })
@@ -17,9 +17,9 @@ class UsersContainer extends Component {
  
   onPageChange = (pageNum) => {
     this.props.setCurrentPage(pageNum);
-    this.props.toggleisLoading(true);
+    this.props.toggleIsLoading(true);
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`).then(response => {
-      this.props.toggleisLoading(false);
+      this.props.toggleIsLoading(false);
       this.props.setUsers(response.data.items);
     })
   }
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+/* const mapDispatchToProps = (dispatch) => {
   return {
     follow: (userId) => {
       dispatch(followAC(userId))
@@ -72,6 +72,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(toggleIsLoadingAC(isLoading))
     }
   }
-}
+} */
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  toggleIsLoading
+})(UsersContainer);
