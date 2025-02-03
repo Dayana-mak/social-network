@@ -1,49 +1,49 @@
-import axios from "axios"
 import styles from "./users.module.css"
 import defaultPhoto from "../../assets/images/defaultPhoto.webp"
 
 const Users = (props) => {
-  if (props.users.length === 0) {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-      props.setUsers(response.data.items)
-    })
-   /*  props.setUsers([
-      {id: 1, photoUrl: "https://trendreporter.ru/wp-content/uploads/2024/04/paroda-sobaki-moltipu-2.webp.webp", isFollowed: false, fullName:"Roberto", status: "I'm a boss", location: {city: "Rome", country: "Italy"}},
-      {id: 2, photoUrl: "https://trendreporter.ru/wp-content/uploads/2024/04/paroda-sobaki-moltipu-2.webp.webp", isFollowed: false, fullName:"Andrew", status: "I'm a boss too", location: {city: "Paris", country: "France"}},
-      {id: 3, photoUrl: "https://trendreporter.ru/wp-content/uploads/2024/04/paroda-sobaki-moltipu-2.webp.webp", isFollowed: true, fullName:"Jovanni", status: "I'm a boss also", location: {city: "Berlin", country: "Germany"}},
-      {id: 4, photoUrl: "https://trendreporter.ru/wp-content/uploads/2024/04/paroda-sobaki-moltipu-2.webp.webp", isFollowed: true, fullName:"Alexandro", status: "I'm a big boss", location: {city: "Berlin", country: "Germany"}}
-    ]) */
-  }
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i)
+    }
   
-  return (
-    <div>
-      {
-        props.users.map(user => <div key={user.id}>
-              <span>
-                <div>
-                  <img src={user.photos.small !== null ? user.photos.small : defaultPhoto} alt="аватар" className={styles.userPhoto}/>
-                </div>
-                <div>
-                  {user.isFollowed 
-                    ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                    : <button onClick={() => props.follow(user.id)}>Follow</button> 
-                    }
-                </div>
-              </span>
-              <span>
+    return (
+      <div>
+        <div>
+          {pages.map(pageNum => (
+            <span className={`${props.currentPage === pageNum && styles.selectedPage} ${styles.pageNum}`}
+            onClick={() => props.onPageChange(pageNum)}>{pageNum} </span>
+          ))}
+        </div>
+        {
+          props.users.map(user => <div key={user.id}>
                 <span>
-                  <div>{user.name}</div>
-                  <div>{user.status}</div>
+                  <div>
+                    <img src={user.photos.small !== null ? user.photos.small : defaultPhoto} alt="аватар" className={styles.userPhoto}/>
+                  </div>
+                  <div>
+                    {user.followed 
+                      ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
+                      : <button onClick={() => props.follow(user.id)}>Follow</button> 
+                      }
+                  </div>
                 </span>
                 <span>
-                  <div>{"user.location.city"}</div>
-                  <div>{"user.location.country"}</div>
+                  <span>
+                    <div>{user.name}</div>
+                    <div>{user.status}</div>
+                  </span>
+                  <span>
+                    <div>{"user.location.city"}</div>
+                    <div>{"user.location.country"}</div>
+                  </span>
                 </span>
-              </span>
-            </div>)
-      }
-    </div>
-  )
+              </div>)
+        }
+      </div>
+    )
 }
 
 export default Users;
