@@ -1,10 +1,17 @@
-import React from "react"
+import { NavLink } from 'react-router-dom';
 import s from './Header.module.css'
 
-function Header() {
+function Header(props) {
   return (
     <header className={s.header}>
-      <img src="https://steamuserimages-a.akamaihd.net/ugc/2296339440150148468/D1E7596B00EC41623A8121E5AEF8C96776B1AED3/?imw=512&imh=400&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" />
+      <img src="https://steamuserimages-a.akamaihd.net/ugc/2296339440150148468/D1E7596B00EC41623A8121E5AEF8C96776B1AED3/?imw=512&imh=400&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"/>
+
+      <div className={s.loginBlock}>
+        { props.isAuth 
+          ? props.login
+        : <NavLink to={"/login"}>Login</NavLink>}
+        
+      </div>
     </header>
     );
 }
