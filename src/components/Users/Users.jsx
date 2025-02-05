@@ -1,6 +1,7 @@
 import styles from "./users.module.css"
 import defaultPhoto from "../../assets/images/defaultPhoto.webp"
 import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../api/api";
 
 const Users = (props) => {
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -9,6 +10,17 @@ const Users = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
       pages.push(i)
     }
+
+/*     const onFollowClick = () => {
+      axios.post(`https://social-network.samuraijs.com/api/1.0/users/follow/${user.id}`, {}, {
+        withCredentials: true
+      })
+        .then(response => {
+        if (response.data.resultCode === 0) {
+          props.follow(user.id);
+        }
+      });
+    } */
   
     return (
       <div>
@@ -28,8 +40,22 @@ const Users = (props) => {
                   </div>
                   <div>
                     {user.followed 
-                      ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                      : <button onClick={() => props.follow(user.id)}>Follow</button> 
+                      ? <button onClick={() => {
+                        usersAPI.unfollow(user.id)
+                          .then(response => {
+                          if (response.resultCode === 0) {
+                            props.unfollow(user.id);
+                          }
+                        });
+                      }}>Unfollow</button>
+                      : <button onClick={() => {
+                        usersAPI.follow(user.id)
+                          .then(response => {
+                          if (response.resultCode === 0) {
+                            props.follow(user.id);
+                          }
+                        });
+                      }}>Follow</button> 
                       }
                   </div>
                 </span>

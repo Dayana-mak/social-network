@@ -8,8 +8,8 @@ function Header(props) {
 
       <div className={s.loginBlock}>
         { props.isAuth 
-          ? props.login
-        : <NavLink to={"/login"}>Login</NavLink>}
+          ? <p>{props.login} {props.email}</p> 
+          : <NavLink to={"/login"}>Login</NavLink>}
         
       </div>
     </header>
