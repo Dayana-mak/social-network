@@ -1,27 +1,16 @@
 import { connect } from "react-redux";
-import { follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsLoading, unfollow } from "../../redux/users-reducer";
+import { follow, unfollow, getUsers } from "../../redux/users-reducer";
 import { Component } from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
-import { usersAPI } from "../../api/api";
 
 class UsersContainer extends Component {
   componentDidMount() {
-    this.props.toggleIsLoading(true);
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(response => {
-        this.props.toggleIsLoading(false);
-        this.props.setUsers(response.items);
-      /* this.props.setTotalUsersCount(response.data.totalCount); */
-    })
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
  
   onPageChange = (pageNum) => {
-    this.props.setCurrentPage(pageNum);
-    this.props.toggleIsLoading(true);
-    usersAPI.getUsers(pageNum, this.props.pageSize).then(response => {
-        this.props.toggleIsLoading(false);
-        this.props.setUsers(response.items);
-    })
+    this.props.getUsers(pageNum, this.props.pageSize)
   }
 
   render() {
@@ -35,6 +24,7 @@ class UsersContainer extends Component {
              onPageChange={this.onPageChange}
              follow={this.props.follow}
              unfollow={this.props.unfollow}
+             followingInProgress={this.props.followingInProgress}
              />
       </>
     )
@@ -47,9 +37,16 @@ const mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
-    isLoading: state.usersPage.isLoading
+    isLoading: state.usersPage.isLoading,
+    followingInProgress: state.usersPage.followingInProgress
   }
 }
+
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  getUsers
+})(UsersContainer);
 
 /* const mapDispatchToProps = (dispatch) => {
   return {
@@ -73,12 +70,3 @@ const mapStateToProps = (state) => {
     }
   }
 } */
-
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setUsers,
-  setCurrentPage,
-  setTotalUsersCount,
-  toggleIsLoading
-})(UsersContainer);
