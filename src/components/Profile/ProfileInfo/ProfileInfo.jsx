@@ -12,7 +12,7 @@ function ProfileInfo(props) {
       <div className={s.descriprion}>
         <h3>{props.profile.fullName}</h3>
         <p>{props.profile.aboutMe}</p>
-        <ProfileStatus status={"Hello, everybody!!"}/>
+        <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
       </div>
     </div>
   );
