@@ -32,5 +32,4 @@ const ProfileContainerWrapper = (props) => {
 
 export default compose(
   connect(mapStateToProps, { getUserProfile }),
-  withAuthRedirect,
 )(ProfileContainerWrapper)
