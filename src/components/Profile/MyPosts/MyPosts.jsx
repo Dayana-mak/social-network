@@ -1,19 +1,7 @@
 import React from 'react';
 import Post from './Post/Post';
-import { Field, reduxForm } from 'redux-form';
+import AddPostForm from "./AddPostForm/AddPostForm"
 
-const AddPostForm = (props) => {
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <Field component="textarea"
-             name="newPostText"
-             placeholder="New post" />
-      <button>Addpost</button>
-    </form>
-  )
-}
-
-const AddPostReduxForm = reduxForm({form: "profileAddPostForm"}) (AddPostForm)
 
 const MyPosts = (props) => {
   const posts = props.posts;
@@ -26,7 +14,7 @@ const MyPosts = (props) => {
   return (
     <div>
       <h2>My Posts</h2>
-      <AddPostReduxForm onSubmit={addNewPost}/>
+      <AddPostForm onSubmit={addNewPost}/>
       <ul>
         { postsList }
       </ul>
