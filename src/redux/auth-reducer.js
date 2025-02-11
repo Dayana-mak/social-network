@@ -6,7 +6,8 @@ const initialState = {
   userId: null,
   login: null,
   email: null,
-  isAuth: false
+  isAuth: false,
+
 }
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -31,6 +32,17 @@ export const getAuthUserData = () => {
         if (data.resultCode === 0) {
           let {id, email, login} = data.data;
           dispatch(setAuthUserData(id, login, email));
+        }
+      })
+  }
+}
+
+export const loginUser = () => {
+  return (dispatch) => {
+    authAPI.loginUser()
+      .then(data => {
+        if (data.resultCode === 0) {
+          
         }
       })
   }
