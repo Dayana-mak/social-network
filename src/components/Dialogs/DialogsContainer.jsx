@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const DialogsContainer = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  //withAuthRedirect
+  withAuthRedirect
 )(Dialogs)
 
 
