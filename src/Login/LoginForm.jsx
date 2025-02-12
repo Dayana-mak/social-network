@@ -1,6 +1,7 @@
 import { Field, reduxForm } from "redux-form"
 import { Input } from "../components/common/FormControls/FormControls";
 import { required } from "../utils/validators/validators";
+import style from "../components/common/FormControls/FormControls.module.css"
 
 const LoginForm = (props) => {
   return (
@@ -25,9 +26,12 @@ const LoginForm = (props) => {
                component={"input"}/>
          remember me
       </div>
+      { props.error &&  <div className={style.formSummaryError}>
+        {props.error}
+      </div>}
       <div>
         <button>login</button>
-        </div>
+      </div>
     </form>
   )
 }
