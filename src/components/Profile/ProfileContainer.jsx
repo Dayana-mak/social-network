@@ -5,10 +5,19 @@ import { Component } from "react";
 import { useParams } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import withRouter from "../../hoc/withRouter";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    let userId = this.props.userId || 32100;
+    let userId =  this.props.router.params.userId;
+    if (!userId) {
+      debugger;
+      userId = this.props.authorizedUserId;
+      if (!userId) {
+        this.props.router.navigate('/login');
+        return;
+      }
+    }
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
   }
@@ -22,7 +31,8 @@ class ProfileContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId
   }
 }
 
@@ -33,6 +43,6 @@ const ProfileContainerWrapper = (props) => {
 
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }),
-  withAuthRedirect
+  withRouter,
+  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus })
 )(ProfileContainerWrapper)
