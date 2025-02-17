@@ -11,7 +11,6 @@ class ProfileContainer extends Component {
   componentDidMount() {
     let userId =  this.props.router.params.userId;
     if (!userId) {
-      debugger;
       userId = this.props.authorizedUserId;
       if (!userId) {
         this.props.router.navigate('/login');

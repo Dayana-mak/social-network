@@ -37,6 +37,8 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         status: action.status
       };
+
+    
     default:
       return state;
   }
