@@ -1,0 +1,56 @@
+import styles from "./users.module.css";
+import defaultPhoto from "../../assets/images/defaultPhoto.webp";
+import { NavLink } from "react-router-dom";
+
+const User = ({ user, followingInProgress, unfollow, follow }) => {
+  return (
+    <div>
+      <div>
+        <div>
+          <NavLink to={`/profile/${user.id}`}>
+            <img
+              src={
+                user.photos.small !== null ? user.photos.small : defaultPhoto
+              }
+              alt="аватар"
+              className={styles.userPhoto}
+            />
+          </NavLink>
+        </div>
+        <div>
+          {user.followed ? (
+            <button
+              disabled={followingInProgress.some((id) => id === user.id)}
+              onClick={() => {
+                unfollow(user.id);
+              }}
+            >
+              Unfollow
+            </button>
+          ) : (
+            <button
+              disabled={followingInProgress.some((id) => id === user.id)}
+              onClick={() => {
+                follow(user.id);
+              }}
+            >
+              Follow
+            </button>
+          )}
+        </div>
+      </div>
+      <div>
+        <div>
+          <p>{user.name}</p>
+          <p>{user.status}</p>
+        </div>
+        <div>
+          <div>{"user.location.city"}</div>
+          <div>{"user.location.country"}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default User;

@@ -31,15 +31,15 @@ class App extends Component {
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
-        <Routes>
-          <Route path="profile/:userId?" element={<ProfileContainer />} />
-          <Route path="dialogs/*" element={<DialogsContainer />} />
-          <Route path="users/" element={<UsersContainer />} />
-          <Route path="news/" element={<News />} />
-          <Route path="music/" element={<Music />} />
-          <Route path="settings/" element={<Settings />} />
-          <Route path="login/" element={<LoginPage />} />
-        </Routes>
+          <Routes>
+            <Route path="profile/:userId?" element={<ProfileContainer />} />
+            <Route path="dialogs/*" element={<DialogsContainer />} />
+            <Route path="users/" element={<UsersContainer />} />
+            <Route path="news/" element={<News />} />
+            <Route path="music/" element={<Music />} />
+            <Route path="settings/" element={<Settings />} />
+            <Route path="login/" element={<LoginPage />} />
+          </Routes>
         </div>
       </div>
     )
@@ -51,5 +51,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  connect(mapStateToProps, {initialize}),
+  connect(mapStateToProps, { initialize }),
   withRouter)(App);
