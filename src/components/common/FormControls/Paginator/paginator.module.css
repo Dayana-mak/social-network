@@ -1,7 +1,10 @@
 .selectedPage {
   font-weight: bold;
+  background-color: aquamarine;
 }
 
 .pageNum {
   cursor: pointer;
+  padding: 0 3px 0;
+  border: 1px solid black;
 }

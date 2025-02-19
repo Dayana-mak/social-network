@@ -1,7 +1,6 @@
 import Preloader from "../../common/Preloader";
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
-import ProfileStatusWithHooks from "./ProfileStatus copy";
 
 function ProfileInfo(props) {
   if (!props.profile) {
@@ -13,7 +12,7 @@ function ProfileInfo(props) {
       <div className={s.descriprion}>
         <h3>{props.profile.fullName}</h3>
         <p>{props.profile.aboutMe}</p>
-        <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
+        <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
       </div>
     </div>
   );
