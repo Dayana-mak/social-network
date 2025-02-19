@@ -20,6 +20,10 @@ const Paginator = ({
   let leftPortionPageNumber = (portionNumber - 1) * pageSize + 1;
   let rightPortionPageNumber = portionNumber * pageSize;
 
+  const onNextClick = () => {
+    setPortionNumber(portionNumber + 1);
+  }
+
   return (
     <div>
       {portionNumber > 1 && (
@@ -42,7 +46,7 @@ const Paginator = ({
         ))}
 
       {portionNumber < portionsCount && (
-        <button onClick={() => setPortionNumber(portionNumber + 1)}>
+        <button onClick={onNextClick}>
           NEXT
         </button>
       )}

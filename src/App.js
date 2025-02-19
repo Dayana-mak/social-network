@@ -9,12 +9,19 @@ import Music from './components/Music/Music';
 import UsersContainer from './components/Users/UsersContainer';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import LoginPage from './Login/Login';
-import { Component } from 'react';
+import { Component, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
 import Preloader from './components/common/Preloader';
 import { initialize } from './redux/app-reducer';
 import withRouter from './hoc/withRouter';
 import { compose } from 'redux';
+
+/* const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
+const News = lazy(() => import('./components/News/News'));
+const ProfileContainer = lazy(() => new Promise(resolve => 
+  setTimeout(() => resolve(import('./components/Profile/ProfileContainer')), 3000) // 3 секунды
+)); */
+
 
 class App extends Component {
   componentDidMount() {
@@ -33,12 +40,12 @@ class App extends Component {
         <div className="app-wrapper-content">
           <Routes>
             <Route path="profile/:userId?" element={<ProfileContainer />} />
-            <Route path="dialogs/*" element={<DialogsContainer />} />
             <Route path="users/" element={<UsersContainer />} />
-            <Route path="news/" element={<News />} />
             <Route path="music/" element={<Music />} />
             <Route path="settings/" element={<Settings />} />
             <Route path="login/" element={<LoginPage />} />
+            <Route path="dialogs/*" element={<DialogsContainer />} />
+            <Route path="news/" element={<News />} />
           </Routes>
         </div>
       </div>
