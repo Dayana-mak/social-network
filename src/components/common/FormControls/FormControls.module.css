@@ -1,12 +1,14 @@
-.formControl.error input,
-.formControl.error textarea {
-  border: 2px solid darkred;
-}
-
-.formControl.error span {
+.error {
   color: darkred;
 }
 
-.formSummaryError {
-  color: darkred;
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

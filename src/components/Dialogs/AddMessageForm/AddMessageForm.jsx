@@ -1,19 +1,39 @@
-import { Field, reduxForm } from "redux-form";
-import { maxLengthConstructor, required } from "../../../utils/validators/validators";
-import { Textarea } from "../../common/FormControls/FormControls";
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import { maxLengthConstructor } from "../../../utils/validators/validators";
+import * as Yup from "yup";
+import { MyTextarea } from "../../common/FormControls/FormControls";
 
-const maxLength10 = maxLengthConstructor(10);
+const AddMessageForm = ({ onSubmit }) => {
+  const initialValues = {
+    newMessageText: "",
+  };
 
- const AddMessageForm = (props) => {
+  const validate = Yup.object({
+    newMessageText: maxLengthConstructor(10),
+  });
   return (
-    <form onSubmit={props.handleSubmit}>
-      <Field component={Textarea}
-             name="newMessageBody"
-             placeholder="Write message"
-             validate={[required, maxLength10]}/>
-      <button>Отправить</button>
-    </form>
-  )
-} 
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validate}
+        onSubmit={(values, {resetForm}) => {
+          onSubmit(values.newMessageText)
+          resetForm();
+        }}
+      >
+        <Form>
+          <MyTextarea
+            label="newMessageText"
+            name="newMessageText"
+            type="text"
+            placeholder="Write new message"
+          />
 
-export default reduxForm({form: "dialogAddMessageForm"}) (AddMessageForm)
+          <button type="submit">Send</button>
+        </Form>
+      </Formik>
+    </>
+  );
+};
+
+export default AddMessageForm;

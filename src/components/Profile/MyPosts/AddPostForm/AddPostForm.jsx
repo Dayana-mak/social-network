@@ -1,20 +1,26 @@
-import { Field, reduxForm } from 'redux-form';
-import { required, maxLengthConstructor } from '../../../../utils/validators/validators';
-import { Textarea } from '../../../common/FormControls/FormControls';
+import { Form, Formik } from "formik";
+import { MyTextarea } from "../../../common/FormControls/FormControls";
 
-
-const maxLength10 = maxLengthConstructor(10);
-
-const AddPostForm = (props) => {
+const AddPostForm = ({ onSubmit }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <Field component={Textarea}
-             name="newPostText"
-             placeholder="New post"
-             validate={[required, maxLength10]} />
-      <button>Addpost</button>
-    </form>
-  )
-}
+    <Formik 
+    initialValues={{ newPostText: "" }} 
+    onSubmit={(values, {resetForm}) => {
+      onSubmit(values.newPostText);
+      resetForm();
+    }}>
+      <Form>
+        <MyTextarea
+          label="newPostText"
+          name="newPostText"
+          type="text"
+          placeholder="Write new post"
+        />
 
-export default reduxForm({form: "profileAddPostForm"}) (AddPostForm)
+        <button type="submit">Add post</button>
+      </Form>
+    </Formik>
+  );
+};
+
+export default AddPostForm;

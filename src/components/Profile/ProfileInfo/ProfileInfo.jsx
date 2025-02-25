@@ -1,18 +1,37 @@
 import Preloader from "../../common/Preloader";
-import s from "./ProfileInfo.module.css"
+import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
+import defaultPhoto from "../../../assets/images/defaultPhoto.webp";
 
-function ProfileInfo(props) {
-  if (!props.profile) {
-    return < Preloader/>
+function ProfileInfo({
+  profile,
+  status,
+  updateUserStatus,
+  isOwner,
+  savePhoto,
+}) {
+  if (!profile) {
+    return <Preloader />;
   }
+
+  const onPhotoChange = (e) => {
+    if (e.target.files.length > 0) {
+      savePhoto(e.target.files[0]);
+    }
+  };
+
   return (
     <div className={s.profile__wrapper}>
-      <img className={s.image}src={props.profile.photos.large || "https://i.pinimg.com/736x/f0/c6/7c/f0c67c6d8ee566c1d463291449b7a768.jpg"} alt="Profile avatar" />
+      <img
+        className={s.image}
+        src={profile.photos.large || defaultPhoto}
+        alt="Profile avatar"
+      />
       <div className={s.descriprion}>
-        <h3>{props.profile.fullName}</h3>
-        <p>{props.profile.aboutMe}</p>
-        <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+        <h3>{profile.fullName}</h3>
+        <p>{profile.aboutMe}</p>
+        <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
+        {isOwner && <input type={"file"} onChange={onPhotoChange} />}
       </div>
     </div>
   );

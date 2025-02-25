@@ -38,6 +38,12 @@ export const profileAPI = {
   updateUserStatus(status) {
     return instance.put(`profile/status/`, { status: status })
       .then(response => response.data);
+  },
+  savePhoto(photoFile) {
+    const formData = new FormData();
+    formData.append("image", photoFile);
+    return instance.put(`profile/photo/`, formData)
+      .then(response => response.data);
   }
 }
 
@@ -48,12 +54,12 @@ export const authAPI = {
   },
 
   login(email, password, rememberMe = false) {
-    return instance.post("/auth/login", { email, password, rememberMe })
+    return instance.post("auth/login", { email, password, rememberMe })
       .then(response => response.data)
   },
 
   logout() {
-    return instance.delete("/auth/login")
+    return instance.delete("auth/login")
       .then(response => response.data)
   }
 }

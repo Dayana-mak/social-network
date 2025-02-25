@@ -4,8 +4,15 @@ import LoginForm from "./LoginForm";
 import { Navigate } from "react-router-dom";
 
 const Login = ({ login, isAuth }) => {
-  const onSubmit = ({ email, password, rememberMe }) => {
-    login(email, password, rememberMe);
+  const onSubmit = async (
+    { email, password, rememberMe },
+    { setSubmitting, setStatus }
+  ) => {
+    const errorMessage = await login(email, password, rememberMe);
+    if (errorMessage) {
+      setStatus(errorMessage);
+    }
+    setSubmitting(false);
   };
 
   if (isAuth) {

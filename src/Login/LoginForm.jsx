@@ -1,5 +1,57 @@
-import { Field, reduxForm } from "redux-form";
-import { Input } from "../components/common/FormControls/FormControls";
+import { Form, Formik } from "formik";
+import {
+  MyTextInput,
+  MyCheckbox,
+} from "../components/common/FormControls/FormControls";
+import { loginValidation } from "../utils/validators/validators";
+
+const LoginForm = ({ onSubmit }) => {
+  return (
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+        rememberMe: false,
+      }}
+      onSubmit={onSubmit}
+      validationSchema={loginValidation}
+    >
+      {({ isSubmitting, setStatus, status }) => (
+        <Form
+          onInput={() => {
+            if (status) setStatus(null);
+          }}
+        >
+          <MyTextInput
+            label="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+          />
+
+          <MyTextInput
+            label="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
+
+          <MyCheckbox name="rememberMe">Remember me</MyCheckbox>
+
+          {status && <div>{status}</div>}
+
+          <button type="submit" disabled={isSubmitting}>
+            Login
+          </button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default LoginForm;
+
+/* import { Input } from "../components/common/FormControls/FormControls";
 import { required } from "../utils/validators/validators";
 import style from "../components/common/FormControls/FormControls.module.css";
 
@@ -40,4 +92,5 @@ const LoginForm = ({ handleSubmit, error }) => {
   );
 };
 
-export default reduxForm({ form: "login" })(LoginForm);
+export default (LoginForm);
+ */

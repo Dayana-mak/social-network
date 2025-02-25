@@ -1,0 +1,10 @@
+.testForm {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 10px;
+}
+
+.error {
+  color: darkred;
+}
