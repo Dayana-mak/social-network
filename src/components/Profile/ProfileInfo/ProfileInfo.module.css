@@ -6,3 +6,23 @@
 .image {
   width: 100px;
 }
+
+.propertyTitle {
+  font-weight: bold;
+}
+
+.formPropertyWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.formContactsWrapper {
+  justify-content: space-between;
+}
+
+.formWrapper {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

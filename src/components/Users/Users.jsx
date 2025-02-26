@@ -1,4 +1,4 @@
-import Paginator from "../common/FormControls/Paginator/Paginator";
+import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 
 const Users = ({
