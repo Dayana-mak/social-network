@@ -39,7 +39,7 @@ class App extends Component {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            <Route path="/" element={<Navigate to="profile/" replace/>} />
+            <Route exact path="/" element={<Navigate to="profile/" replace/>} />
             <Route path="profile/:userId?" element={<ProfileContainer />} />
             <Route path="users/" element={<UsersContainer />} />
             <Route path="music/" element={<Music />} />
