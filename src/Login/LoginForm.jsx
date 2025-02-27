@@ -4,17 +4,20 @@ import {
   MyCheckbox,
 } from "../components/common/FormControls/FormControls";
 import { loginValidation } from "../utils/validators/validators";
+import s from "../components/common/FormControls/FormControls.module.css";
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, captchaUrl }) => {
   return (
     <Formik
       initialValues={{
         email: "",
         password: "",
         rememberMe: false,
+        captcha: "",
       }}
       onSubmit={onSubmit}
       validationSchema={loginValidation}
+      context={{ captchaUrl }}
     >
       {({ isSubmitting, setStatus, status }) => (
         <Form
@@ -38,7 +41,16 @@ const LoginForm = ({ onSubmit }) => {
 
           <MyCheckbox name="rememberMe">Remember me</MyCheckbox>
 
-          {status && <div>{status}</div>}
+          {captchaUrl && <img src={captchaUrl} />}
+          {captchaUrl && (
+            <MyTextInput
+              label="captcha"
+              name="captcha"
+              type="text"
+              placeholder="Enter captcha symbols"
+            />
+          )}
+          {status && <div className={s.error}>{status}</div>}
 
           <button type="submit" disabled={isSubmitting}>
             Login

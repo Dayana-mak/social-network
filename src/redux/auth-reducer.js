@@ -1,16 +1,23 @@
-import { authAPI } from "../api/api";
+import { authAPI, securityAPI } from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
 
 const initialState = {
   userId: null,
   login: null,
   email: null,
-  isAuth: false
+  isAuth: false,
+  captchaUrl: null
 }
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_DATA:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case SET_CAPTCHA_URL:
       return {
         ...state,
         ...action.payload
@@ -26,6 +33,11 @@ export const setAuthUserData = (userId, login, email, isAuth) => ({
   payload: { userId, login, email, isAuth }
 });
 
+export const setCaptchaUrl = (captchaUrl) => ({
+  type: SET_CAPTCHA_URL,
+  payload: { captchaUrl }
+});
+
 export const getAuthUserData = () => async (dispatch) => {
   const data = await authAPI.getMe();
 
@@ -35,18 +47,20 @@ export const getAuthUserData = () => async (dispatch) => {
   }
 }
 
-export const login = (email, password, rememberMe) => async (dispatch) => {
-  const data = await authAPI.login(email, password, rememberMe);
+export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+  const data = await authAPI.login(email, password, rememberMe, captcha);
 
   if (data.resultCode === 0) {
     dispatch(getAuthUserData());
     return null;
   } else {
+    if (data.resultCode === 10) {
+      dispatch(getCaptchaUrl());
+    }
     const message = data.messages.length > 0 ? data.messages[0] : "Some error";
     return message;
   }
 }
-
 
 export const logout = () => async (dispatch) => {
   const data = await authAPI.logout();
@@ -56,5 +70,11 @@ export const logout = () => async (dispatch) => {
   }
 }
 
+export const getCaptchaUrl = () => async (dispatch) => {
+  const data = await securityAPI.getCaptchaUrl();
+  const captchaUrl = data.url;
+
+  dispatch(setCaptchaUrl(captchaUrl))
+}
 
 export default authReducer;

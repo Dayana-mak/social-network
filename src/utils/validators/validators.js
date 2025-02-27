@@ -20,7 +20,12 @@ export const maxLengthConstructor = (maxLength) => {
 
 export const loginValidation = Yup.object({
   email: validEmail,
-  password: requiredField
+  password: requiredField,
+  captcha: Yup.string().when("$captchaUrl", {
+    is: (captchaUrl) => !!captchaUrl,
+    then: () => Yup.string().required("This field is required"),
+    otherwise: () => Yup.string()
+  })
 })
 
 

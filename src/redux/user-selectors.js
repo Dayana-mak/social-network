@@ -1,5 +1,3 @@
-import { createSelector } from '@reduxjs/toolkit';
-
 export const getUsers = (state) => {
   return state.usersPage.users;
 }
