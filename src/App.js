@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
@@ -39,6 +39,7 @@ class App extends Component {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
+            <Route path="/" element={<Navigate to="profile/" replace/>} />
             <Route path="profile/:userId?" element={<ProfileContainer />} />
             <Route path="users/" element={<UsersContainer />} />
             <Route path="music/" element={<Music />} />

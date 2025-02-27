@@ -18,7 +18,7 @@ const AddMessageForm = ({ onSubmit }) => {
         validationSchema={validate}
         onSubmit={(values, {resetForm}) => {
           onSubmit(values.newMessageText)
-          resetForm();
+          resetForm();  
         }}
       >
         <Form>

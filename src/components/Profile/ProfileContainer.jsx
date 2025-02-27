@@ -15,7 +15,7 @@ import withRouter from "../../hoc/withRouter";
 
 class ProfileContainer extends Component {
   refreshProfile() {
-    let userId = this.props.router.params.userId;
+    let userId = this.props.router.userId;
     if (!userId) {
       userId = this.props.authorizedUserId;
       if (!userId) {

@@ -48,6 +48,7 @@ const ProfileInfo = ({
             <input type={"file"} onChange={onPhotoChange} />
           </div>
         )}
+        <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
       </div>
       <div className={s.descriprion}>
         {editMode ? (
@@ -60,7 +61,7 @@ const ProfileInfo = ({
           />
         )}
 
-        <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
+
       </div>
     </div>
   );
