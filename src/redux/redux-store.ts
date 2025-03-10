@@ -5,7 +5,7 @@ import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
 import appReducer from './app-reducer';
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,
@@ -14,9 +14,13 @@ const reducers = combineReducers({
 });
 
 const store = configureStore({
-  reducer: reducers
+  reducer: rootReducer
 });
 
-window.store = store;
+type RootReducerType = typeof rootReducer;
+export type AppStateType = ReturnType<RootReducerType>;
+
+ // @ts-ignore
+window.__store__ = store;
 
 export default store;

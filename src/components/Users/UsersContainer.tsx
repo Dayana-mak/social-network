@@ -11,13 +11,32 @@ import {
   getTotalUsersCounts,
   getUsers,
 } from "../../redux/user-selectors";
+import { UserType } from "../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
-class UsersContainer extends Component {
+type MapStatePropsType = {
+  currentPage: number
+  pageSize: number
+  isLoading: boolean
+  totalUsersCount: number
+  users: Array<UserType>
+  followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
+  requestUsers: (currentPage: number, pageSize: number) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+class UsersContainer extends Component<PropsType> {
   componentDidMount() {
     this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
-  onPageChange = (pageNum) => {
+  onPageChange = (pageNum: number): void => {
     this.props.requestUsers(pageNum, this.props.pageSize);
   };
 
@@ -40,7 +59,7 @@ class UsersContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     users: getUsers(state),
     currentPage: getCurrentPage(state),
@@ -50,31 +69,9 @@ const mapStateToProps = (state) => {
     followingInProgress: getFollowingInProgress(state),
   };
 };
-export default connect(mapStateToProps, {
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
   follow,
   unfollow,
   requestUsers,
 })(UsersContainer);
 
-/* const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId))
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId))
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users))
-    },
-    setCurrentPage: (pageNum) => {
-      dispatch(setCurrentPageAC(pageNum))
-    },
-    setTotalUsersCount: (totalUsersCount) => {
-      dispatch(setTotalUsersCountAC(totalUsersCount))
-    },
-    toggleisLoading: (isLoading) => {
-      dispatch(toggleIsLoadingAC(isLoading))
-    }
-  }
-} */
