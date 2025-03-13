@@ -1,5 +1,5 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { authAPI, securityAPI } from "../api/api";
+import { authAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI } from "../api/api";
 import { AppStateType } from "./redux-store";
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -75,7 +75,7 @@ type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknow
 export const getAuthUserData = (): ThunkType<Promise<void>> => async (dispatch: DispatchType) => {
   const data = await authAPI.getMe();
 
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     let { id, email, login } = data.data;
     dispatch(setAuthUserData(id, login, email, true));
   }
@@ -86,11 +86,11 @@ export const login =
   async (dispatch: DispatchType) => {
     const data = await authAPI.login(email, password, rememberMe, captcha);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
       dispatch(getAuthUserData());
       return null;
     } else {
-      if (data.resultCode === 10) {
+      if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
         dispatch(getCaptchaUrl());
       }
       const message =
@@ -102,7 +102,7 @@ export const login =
 export const logout = (): ThunkType<Promise<void>> => async (dispatch: DispatchType) => {
   const data = await authAPI.logout();
 
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(setAuthUserData(null, null, null, false));
   }
 };

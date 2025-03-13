@@ -1,5 +1,5 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { profileAPI } from "../api/api";
+import { profileAPI, ResultCodesEnum } from "../api/api";
 import { PhotosType, ProfileType } from "../types/types";
 import { AppStateType } from "./redux-store";
 
@@ -130,14 +130,14 @@ export const getUserStatus = (userId: number): ThunkType => async (dispatch: Dis
 
 export const updateUserStatus = (status: string): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.updateUserStatus(status);
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(setUserStatus(status));
   }
 };
 
 export const savePhoto = (file: File): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.savePhoto(file);
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(savePhotoSuccess(data.data.photos));
   }
 };
@@ -146,7 +146,7 @@ export const saveProfile =
   (profile: ProfileType): ThunkType => async (dispatch: DispatchType, getState) => {
     const userId = getState().auth.userId;
     const data = await profileAPI.saveProfile(profile);
-    if (data.resultCode === 0 && userId !== null) { 
+    if (data.resultCode === ResultCodesEnum.Success && userId !== null) { 
       dispatch(getUserProfile(userId));
     }
   };
