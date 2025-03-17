@@ -1,7 +1,16 @@
 import s from "./FormControls.module.css";
 import { useField } from "formik";
 
-export const MyTextInput = ({ label, ...props }) => {
+type PropsType = {
+  label?: string
+  id?: string
+  name: string
+  children?: React.ReactNode;
+  type?: string
+  placeholder?: string
+}
+
+export const MyTextInput: React.FC<PropsType> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -17,7 +26,7 @@ export const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-export const MyTextarea = ({ label, ...props }) => {
+export const MyTextarea: React.FC<PropsType> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -33,7 +42,7 @@ export const MyTextarea = ({ label, ...props }) => {
   );
 };
 
-export const MyCheckbox = ({ children, ...props }) => {
+export const MyCheckbox: React.FC<PropsType> = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: "checkbox" });
 
   return (
