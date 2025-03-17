@@ -8,8 +8,8 @@ const MyPosts = (props) => {
     <Post key={post.id} text={post.text} likesCount={post.likesCount} />
   ));
 
-  const addNewPost = (newPostText) => {
-    props.addPost(newPostText);
+  const addNewPost = (values) => {
+    props.addPost(values.newPostText);
   };
 
   return (

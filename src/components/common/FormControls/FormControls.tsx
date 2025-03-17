@@ -8,9 +8,10 @@ type PropsType = {
   children?: React.ReactNode;
   type?: string
   placeholder?: string
+  showErrorImmediately?: boolean
 }
 
-export const MyTextInput: React.FC<PropsType> = ({ label, ...props }) => {
+export const MyTextInput: React.FC<PropsType> = ({ label, showErrorImmediately, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -19,14 +20,14 @@ export const MyTextInput: React.FC<PropsType> = ({ label, ...props }) => {
         {label}
       </label>
       <input {...field} {...props} />
-      {meta.touched && meta.error ? (
+      {(showErrorImmediately || meta.touched) && meta.error ? (
         <div className={s.error}>{meta.error}</div>
       ) : null}
     </div>
   );
 };
 
-export const MyTextarea: React.FC<PropsType> = ({ label, ...props }) => {
+export const MyTextarea: React.FC<PropsType> = ({ label, showErrorImmediately, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -35,7 +36,7 @@ export const MyTextarea: React.FC<PropsType> = ({ label, ...props }) => {
         {label}
       </label>
       <textarea {...field} {...props}></textarea>
-      {meta.touched && meta.error ? (
+      {(showErrorImmediately || meta.touched) && meta.error ? (
         <div className={s.error}>{meta.error}</div>
       ) : null}
     </div>

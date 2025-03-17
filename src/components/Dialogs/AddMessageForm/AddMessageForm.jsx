@@ -27,6 +27,7 @@ const AddMessageForm = ({ onSubmit }) => {
             name="newMessageText"
             type="text"
             placeholder="Write new message"
+            showErrorImmediately={true}
           />
 
           <button type="submit">Send</button>

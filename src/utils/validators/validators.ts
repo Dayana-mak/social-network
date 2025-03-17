@@ -1,11 +1,13 @@
 import * as Yup from "yup";
 
 export const requiredField = Yup.string().required("This field is required");
-export const validEmail = Yup.string().email("Invalid email address").required("This field is required");
+export const validEmail = Yup.string()
+  .email("Invalid email address")
+  .required("This field is required");
 
 export const maxLengthConstructor = (maxLength: number) => {
-  return Yup.string().max(maxLength, `Max length ${maxLength} symbols`)
-}
+  return Yup.string().max(maxLength, `Max length ${maxLength} symbols`);
+};
 
 export const loginValidation = Yup.object({
   email: validEmail,
@@ -13,8 +15,6 @@ export const loginValidation = Yup.object({
   captcha: Yup.string().when("$captchaUrl", {
     is: (captchaUrl: any) => !!captchaUrl,
     then: () => Yup.string().required("This field is required"),
-    otherwise: () => Yup.string()
-  })
-})
-
-
+    otherwise: () => Yup.string(),
+  }),
+});
