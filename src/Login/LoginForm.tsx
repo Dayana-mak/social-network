@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 import {
   MyTextInput,
   MyCheckbox,
@@ -6,7 +6,19 @@ import {
 import { loginValidation } from "../utils/validators/validators";
 import s from "../components/common/FormControls/FormControls.module.css";
 
-const LoginForm = ({ onSubmit, captchaUrl }) => {
+type ValuesType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: string
+}
+
+type PropsType = {
+  onSubmit: (values: ValuesType, formikHelpers: FormikHelpers<ValuesType>) => Promise<void>
+  captchaUrl: string | null
+}
+
+const LoginForm: React.FC<PropsType> = ({ onSubmit, captchaUrl }) => {
   return (
     <Formik
       initialValues={{
@@ -14,12 +26,12 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
         password: "",
         rememberMe: false,
         captcha: "",
-      }}
+      } as ValuesType} 
       onSubmit={onSubmit}
       validationSchema={loginValidation}
       context={{ captchaUrl }}
     >
-      {({ isSubmitting, setStatus, status }) => (
+      {({ isSubmitting, setStatus, status }: FormikProps<ValuesType>) => (
         <Form
           onInput={() => {
             if (status) setStatus(null);
@@ -41,7 +53,7 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
 
           <MyCheckbox name="rememberMe">Remember me</MyCheckbox>
 
-          {captchaUrl && <img src={captchaUrl} />}
+          {captchaUrl && <img alt="captcha" src={captchaUrl} />}
           {captchaUrl && (
             <MyTextInput
               label="captcha"
@@ -62,47 +74,3 @@ const LoginForm = ({ onSubmit, captchaUrl }) => {
 };
 
 export default LoginForm;
-
-/* import { Input } from "../components/common/FormControls/FormControls";
-import { required } from "../utils/validators/validators";
-import style from "../components/common/FormControls/FormControls.module.css";
-
-const LoginForm = ({ handleSubmit, error }) => {
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <Field
-          placeholder={"Email"}
-          name={"email"}
-          component={Input}
-          validate={required}
-        />
-      </div>
-      <div>
-        <Field
-          type="password"
-          placeholder={"Password"}
-          name={"password"}
-          component={Input}
-          validate={required}
-        />
-      </div>
-      <div>
-        <Field
-          type="checkbox"
-          placeholder={"Remember me"}
-          name={"rememberMe"}
-          component={"input"}
-        />
-        remember me
-      </div>
-      {error && <div className={style.formSummaryError}>{error}</div>}
-      <div>
-        <button>login</button>
-      </div>
-    </form>
-  );
-};
-
-export default (LoginForm);
- */
