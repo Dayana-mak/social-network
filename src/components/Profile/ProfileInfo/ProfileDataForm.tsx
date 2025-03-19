@@ -5,12 +5,26 @@ import {
   MyTextInput,
 } from "../../common/FormControls/FormControls";
 import s from "./ProfileInfo.module.css";
+import { ContactsType, ProfileType } from "../../../types/types";
 
-const ProfileDataForm = ({ profile, onSubmit }) => {
-  const initialContacts = {};
+type ValuesType = {
+  fullName: string,
+  aboutMe: string,
+  lookingForAJob: boolean,
+  lookingForAJobDescription: string,
+  contacts: Partial<ContactsType>,
+}
+
+type PropsType = {
+  profile: ProfileType
+  onSubmit: (values: ValuesType) => void
+}
+const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
+  const initialContacts: Partial<ContactsType> = {};
   if (profile.contacts) {
     Object.keys(profile.contacts).forEach((key) => {
-      initialContacts[key] = profile.contacts[key] || "";
+      const typedKey = key as keyof ContactsType 
+      initialContacts[typedKey] = profile.contacts[typedKey] || "";
     });
   }
 
@@ -23,7 +37,7 @@ const ProfileDataForm = ({ profile, onSubmit }) => {
   };
   return (
     <div>
-      <Formik
+      <Formik<ValuesType>
         initialValues={initialValues}
         onSubmit={onSubmit}
         enableReinitialize={true}
@@ -86,27 +100,6 @@ const ProfileDataForm = ({ profile, onSubmit }) => {
           </Form>
         )}
       </Formik>
-
-      {/*  <div>
-        <h3>Name: {profile.fullName}</h3>
-        <p>
-          <span className={s.propertyTitle}>Looking for a job:</span>{" "}
-          {profile.lookingForAJob}
-        </p>
-        <p className={s.propertyTitle}>Contacts:</p>
-        <ul>
-          {Object.keys(profile.contacts).map((key) => {
-            return (
-              <Contact
-                key={key}
-                contactTitle={key}
-                contactValue={profile.contacts[key]}
-              />
-            );
-          })}
-        </ul>
-        {isOwner && <button onClick={activateEditMode}>Edit profile</button>}
-      </div> */}
     </div>
   );
 };

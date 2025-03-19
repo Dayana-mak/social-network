@@ -1,11 +1,18 @@
-import { Formik, Field, ErrorMessage, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import { maxLengthConstructor } from "../../../utils/validators/validators";
 import * as Yup from "yup";
 import { MyTextarea } from "../../common/FormControls/FormControls";
 
-const AddMessageForm = ({ onSubmit }) => {
+type ValuesType = {
+  newMessageText: string
+}
+
+type PropsType = {
+  onSubmit: (values: ValuesType) => void
+}
+const AddMessageForm: React.FC<PropsType>= ({ onSubmit }) => {
   const initialValues = {
-    newMessageText: "",
+    newMessageText: ""
   };
 
   const validate = Yup.object({
@@ -13,11 +20,11 @@ const AddMessageForm = ({ onSubmit }) => {
   });
   return (
     <>
-      <Formik
+      <Formik<ValuesType>
         initialValues={initialValues}
         validationSchema={validate}
         onSubmit={(values, {resetForm}) => {
-          onSubmit(values.newMessageText)
+          onSubmit(values)
           resetForm();  
         }}
       >
