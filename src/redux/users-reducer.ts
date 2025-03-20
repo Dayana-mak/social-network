@@ -4,13 +4,13 @@ import { usersAPI } from "../api/users-api";
 import { UserType } from "../types/types";
 import { AppStateType, InferActionsType } from "./redux-store";
 
-const FOLLOW = "FOLLOW" as const;
-const UNFOLLOW = "UNFOLLOW" as const;
-const SET_USERS = "SET_USERS" as const;
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE" as const;
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT" as const;
-const TOGGLE_IS_LOADING = "TOGGLE_IS_LOADING" as const;
-const TOGGLE_FOLLOWING_IN_PROGRESS = "TOGGLE_FOLLOWING_IN_PROGRESS" as const;
+const FOLLOW = "SN/USERS/FOLLOW" as const;
+const UNFOLLOW = "SN/USERS/UNFOLLOW" as const;
+const SET_USERS = "SN/USERS/SET_USERS" as const;
+const SET_CURRENT_PAGE = "SN/USERS/SET_CURRENT_PAGE" as const;
+const SET_TOTAL_USERS_COUNT = "SN/USERS/SET_TOTAL_USERS_COUNT" as const;
+const TOGGLE_IS_LOADING = "SN/USERS/TOGGLE_IS_LOADING" as const;
+const TOGGLE_FOLLOWING_IN_PROGRESS = "SN/USERS/TOGGLE_FOLLOWING_IN_PROGRESS" as const;
 
 const initialState = {
   users: [] as Array<UserType>,

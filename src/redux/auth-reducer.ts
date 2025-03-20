@@ -7,8 +7,8 @@ import { securityAPI } from "../api/security-api";
 import { authAPI } from "../api/auth-api";
 import { AppStateType, InferActionsType } from "./redux-store";
 
-const SET_USER_DATA = "SET_USER_DATA" as const;
-const SET_CAPTCHA_URL = "SET_CAPTCHA_URL" as const;
+const SET_USER_DATA = "SN/AUTH/SET_USER_DATA" as const;
+const SET_CAPTCHA_URL = "SN/AUTH/SET_CAPTCHA_URL" as const;
 
 const initialState = {
   userId: null as number | null,

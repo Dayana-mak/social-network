@@ -1,4 +1,4 @@
-const SEND_MESSAGE = "SEND-MESSAGE";
+const SEND_MESSAGE = "SN/DIALOGS/SEND-MESSAGE";
 
 type DialogType = {
   id: number

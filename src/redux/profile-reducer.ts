@@ -4,11 +4,11 @@ import { profileAPI } from "../api/profile-api";
 import { PhotosType, ProfileType } from "../types/types";
 import { AppStateType, InferActionsType } from "./redux-store";
 
-const ADD_POST = "ADD_POST" as const;
-const SET_USER_PROFILE = "SET_USER_PROFILE" as const;
-const SET_USER_STATUS = "SET_USER_STATUS" as const;
-const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS" as const;
-const SAVE_PROFILE_SUCCESS = "SAVE_PROFILE_SUCCESS" as const;
+const ADD_POST = "SN/PROFILE/ADD_POST" as const;
+const SET_USER_PROFILE = "SN/PROFILE/SET_USER_PROFILE" as const;
+const SET_USER_STATUS = "SN/PROFILE/SET_USER_STATUS" as const;
+const SAVE_PHOTO_SUCCESS = "SN/PROFILE/SAVE_PHOTO_SUCCESS" as const;
+const SAVE_PROFILE_SUCCESS = "SN/PROFILE/SAVE_PROFILE_SUCCESS" as const;
 
 type PostType = {
   id: number;
