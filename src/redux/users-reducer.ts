@@ -1,8 +1,8 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { ResultCodesEnum, usersAPI } from "../api/api";
-import { PhotosType, UserType } from "../types/types";
+import { ResultCodesEnum } from "../api/api";
+import { usersAPI } from "../api/users-api";
+import { UserType } from "../types/types";
 import { AppStateType, InferActionsType } from "./redux-store";
-import { Dispatch } from "redux";
 
 const FOLLOW = "FOLLOW" as const;
 const UNFOLLOW = "UNFOLLOW" as const;
@@ -135,7 +135,9 @@ export const requestUsers = (
 const _followUnfollowFlow = async (
   dispatch: DispatchType,
   userId: number,
-  apiMethod: (userId: number) => Promise<{resultCode: ResultCodesEnum, messages: string[]}>,
+  apiMethod: (
+    userId: number
+  ) => Promise<{ resultCode: ResultCodesEnum; messages: string[] }>,
   actionCreator: (userId: number) => ActionTypes
 ) => {
   dispatch(usersActions.toggleFollowingInProgress(true, userId));

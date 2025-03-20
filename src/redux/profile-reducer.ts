@@ -1,5 +1,6 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { profileAPI, ResultCodesEnum } from "../api/api";
+import { ResultCodesEnum } from "../api/api";
+import { profileAPI } from "../api/profile-api";
 import { PhotosType, ProfileType } from "../types/types";
 import { AppStateType, InferActionsType } from "./redux-store";
 
