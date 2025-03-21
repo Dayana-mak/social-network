@@ -20,8 +20,7 @@ const store = configureStore({
 export type AppStateType = ReturnType<typeof store.getState>;
 export type AppDispatchType = typeof store.dispatch;
 
-type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
-export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+export type InferActionsType<T> = T extends {[key: string]: (...args: any[]) => infer U} ? U : never
 
 // @ts-ignore
 window.__store__ = store;
