@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 import s from "./Navbar.module.css"
 
 
-function Navbar() {
-  const setActive = ({ isActive }) => isActive ? s.active_link : s.link;
+const Navbar:React.FC = () => {
+  const setActive = ({ isActive }: { isActive: boolean }): string => isActive ? s.active_link : s.link;
   return (
     <nav className={s.nav}>
       <ul>
