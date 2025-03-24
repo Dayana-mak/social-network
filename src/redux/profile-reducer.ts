@@ -1,7 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { ResultCodesEnum } from "../api/api";
 import { profileAPI } from "../api/profile-api";
-import { PhotosType, ProfileType } from "../types/types";
+import { PhotosType, PostType, ProfileType } from "../types/types";
 import { AppStateType, InferActionsType } from "./redux-store";
 
 const ADD_POST = "SN/PROFILE/ADD_POST" as const;
@@ -10,11 +10,6 @@ const SET_USER_STATUS = "SN/PROFILE/SET_USER_STATUS" as const;
 const SAVE_PHOTO_SUCCESS = "SN/PROFILE/SAVE_PHOTO_SUCCESS" as const;
 const SAVE_PROFILE_SUCCESS = "SN/PROFILE/SAVE_PROFILE_SUCCESS" as const;
 
-type PostType = {
-  id: number;
-  text: string;
-  likesCount: number;
-};
 
 const initialState = {
   posts: [

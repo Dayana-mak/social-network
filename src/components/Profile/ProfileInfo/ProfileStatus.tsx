@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import s from "./ProfileInfo.module.css";
 
-const ProfileStatusWithHooks = (props) => {
+type PropsType = {
+  status: string
+  updateUserStatus: (status: string) => void
+  isOwner: boolean
+}
+const ProfileStatus: React.FC<PropsType> = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
 
@@ -10,7 +15,9 @@ const ProfileStatusWithHooks = (props) => {
   }, [props.status]);
 
   const activateEditMode = () => {
-    setEditMode(true);
+    if (props.isOwner) {
+      setEditMode(true);
+    }
   };
 
   const deactivateEditMode = () => {
@@ -18,7 +25,7 @@ const ProfileStatusWithHooks = (props) => {
     props.updateUserStatus(status);
   };
 
-  const onStatusChange = (e) => {
+  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.currentTarget.value);
   };
 
@@ -52,4 +59,4 @@ const ProfileStatusWithHooks = (props) => {
   );
 };
 
-export default ProfileStatusWithHooks;
+export default ProfileStatus;

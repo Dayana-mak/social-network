@@ -40,3 +40,9 @@ export type MessageType = {
   id: number;
   text: string;
 };
+
+export type PostType = {
+  id: number;
+  text: string;
+  likesCount: number;
+};

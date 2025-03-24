@@ -3,16 +3,25 @@ import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
 import defaultPhoto from "../../../assets/images/defaultPhoto.jpeg";
 import ProfileData from "./ProfileData";
-import { useState } from "react";
-import ProfileDataForm from "./ProfileDataForm";
+import { ChangeEvent, useState } from "react";
+import ProfileDataForm, { ProfileDataFormValuesType } from "./ProfileDataForm";
+import { ProfileType } from "../../../types/types";
 
-const ProfileInfo = ({
+type PropsType = {
+  profile: ProfileType;
+  status: string;
+  updateUserStatus: (status: string) => void;
+  savePhoto: (file: File) => void;
+  saveProfile: (profile: ProfileType) => void;
+  isOwner: boolean;
+};
+const ProfileInfo: React.FC<PropsType> = ({
   profile,
   status,
   updateUserStatus,
   isOwner,
   savePhoto,
-  saveProfile
+  saveProfile,
 }) => {
   const [editMode, setEditMode] = useState(false);
 
@@ -24,16 +33,24 @@ const ProfileInfo = ({
     setEditMode(true);
   };
 
-  const onPhotoChange = (e) => {
-    if (e.target.files.length > 0) {
+  const onPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
       savePhoto(e.target.files[0]);
     }
   };
 
-  const onSubmit = (profile) => {
-    saveProfile(profile);
+  const onSubmit = (values: ProfileDataFormValuesType) => {
+    const updatedProfile: ProfileType = {
+      ...profile,
+      fullName: values.fullName,
+      aboutMe: values.aboutMe,
+      lookingForAJob: values.lookingForAJob,
+      lookingForAJobDescription: values.lookingForAJobDescription,
+      contacts: values.contacts as ProfileType["contacts"],
+    }
+    saveProfile(updatedProfile);
     setEditMode(false);
-  }
+  };
 
   return (
     <div className={s.profile__wrapper}>
@@ -48,7 +65,7 @@ const ProfileInfo = ({
             <input type={"file"} onChange={onPhotoChange} />
           </div>
         )}
-        <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
+        <ProfileStatus status={status} updateUserStatus={updateUserStatus} isOwner={isOwner}/>
       </div>
       <div className={s.descriprion}>
         {editMode ? (
@@ -60,8 +77,6 @@ const ProfileInfo = ({
             isOwner={isOwner}
           />
         )}
-
-
       </div>
     </div>
   );

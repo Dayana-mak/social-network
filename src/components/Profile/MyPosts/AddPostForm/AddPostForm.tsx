@@ -7,17 +7,17 @@ const addPostFormValidation = Yup.object({
   newPostText: maxLengthConstructor(200)
 })
 
-type ValuesType = {
+export type AddPostFormValuesType = {
   newPostText: string
 }
 
 type PropsType = {
-  onSubmit: (values: ValuesType) => void
+  onSubmit: (values: AddPostFormValuesType) => void
 }
 
 const AddPostForm: React.FC<PropsType> = ({ onSubmit }) => {
   return (
-    <Formik<ValuesType>
+    <Formik<AddPostFormValuesType>
     initialValues={{ newPostText: "" }} 
     onSubmit={(values, {resetForm}) => {
       onSubmit(values);

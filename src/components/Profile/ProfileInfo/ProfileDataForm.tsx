@@ -7,17 +7,17 @@ import {
 import s from "./ProfileInfo.module.css";
 import { ContactsType, ProfileType } from "../../../types/types";
 
-type ValuesType = {
-  fullName: string,
-  aboutMe: string,
-  lookingForAJob: boolean,
-  lookingForAJobDescription: string,
-  contacts: Partial<ContactsType>,
-}
+export type ProfileDataFormValuesType = {
+  fullName: string;
+  aboutMe: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  contacts: Partial<ContactsType>;
+};
 
 type PropsType = {
   profile: ProfileType
-  onSubmit: (values: ValuesType) => void
+  onSubmit: (profile: ProfileDataFormValuesType) => void
 }
 const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
   const initialContacts: Partial<ContactsType> = {};
@@ -28,7 +28,7 @@ const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
     });
   }
 
-  const initialValues = {
+  const initialValues: ProfileDataFormValuesType = {
     fullName: profile.fullName || "",
     aboutMe: profile.aboutMe || "",
     lookingForAJob: profile.lookingForAJob || false,
@@ -37,7 +37,7 @@ const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
   };
   return (
     <div>
-      <Formik<ValuesType>
+      <Formik<ProfileDataFormValuesType>
         initialValues={initialValues}
         onSubmit={onSubmit}
         enableReinitialize={true}
