@@ -1,8 +1,20 @@
 import styles from "./users.module.css";
-import defaultPhoto from "../../assets/images/defaultPhoto.webp";
+import defaultPhoto from "../../assets/images/defaultPhoto.jpeg";
 import { NavLink } from "react-router-dom";
+import { UserType } from "../../types/types";
 
-const User = ({ user, followingInProgress, unfollow, follow }) => {
+type UserPropsType = {
+  user: UserType;
+  followingInProgress: Array<number>;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
+};
+const User: React.FC<UserPropsType> = ({
+  user,
+  followingInProgress,
+  unfollow,
+  follow,
+}) => {
   return (
     <div>
       <div>

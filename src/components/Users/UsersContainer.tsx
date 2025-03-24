@@ -15,21 +15,21 @@ import { UserType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
 type MapStatePropsType = {
-  currentPage: number
-  pageSize: number
-  isLoading: boolean
-  totalUsersCount: number
-  users: Array<UserType>
-  followingInProgress: Array<number>
-}
+  currentPage: number;
+  pageSize: number;
+  isLoading: boolean;
+  totalUsersCount: number;
+  users: Array<UserType>;
+  followingInProgress: Array<number>;
+};
 
 type MapDispatchPropsType = {
-  follow: (userId: number) => void
-  unfollow: (userId: number) => void
-  requestUsers: (currentPage: number, pageSize: number) => void
-}
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
+  requestUsers: (currentPage: number, pageSize: number) => void;
+};
 
-type PropsType = MapStatePropsType & MapDispatchPropsType
+type PropsType = MapStatePropsType & MapDispatchPropsType;
 
 class UsersContainer extends Component<PropsType> {
   componentDidMount() {
@@ -69,9 +69,13 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     followingInProgress: getFollowingInProgress(state),
   };
 };
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+export default connect<
+  MapStatePropsType,
+  MapDispatchPropsType,
+  {},
+  AppStateType
+>(mapStateToProps, {
   follow,
   unfollow,
   requestUsers,
 })(UsersContainer);
-

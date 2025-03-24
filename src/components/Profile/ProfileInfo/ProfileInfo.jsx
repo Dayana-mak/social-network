@@ -1,7 +1,7 @@
 import Preloader from "../../common/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
-import defaultPhoto from "../../../assets/images/defaultPhoto.webp";
+import defaultPhoto from "../../../assets/images/defaultPhoto.jpeg";
 import ProfileData from "./ProfileData";
 import { useState } from "react";
 import ProfileDataForm from "./ProfileDataForm";
