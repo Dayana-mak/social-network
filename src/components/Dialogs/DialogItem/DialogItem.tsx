@@ -1,14 +1,15 @@
 import { NavLink } from "react-router-dom";
-import s from "./../Dialogs.module.css"
+import s from "./../Dialogs.module.css";
 import { DialogType } from "../../../types/types";
-import { JSX } from "react";
 
-type DialogItemPropsType = DialogType
-
-const DialogItem = (props: DialogItemPropsType): JSX.Element => {
+const DialogItem: React.FC<DialogType> = ({ id, name }) => {
   return (
-    <li className={s.dialog}><NavLink to={`/dialogs/${props.id}`} className={s.dialog__link}>{props.name}</NavLink></li>
+    <li className={s.dialog}>
+      <NavLink to={`/dialogs/${id}`} className={s.dialog__link}>
+        {name}
+      </NavLink>
+    </li>
   );
-}
+};
 
 export default DialogItem;

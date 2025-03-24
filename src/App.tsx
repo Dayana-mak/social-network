@@ -1,6 +1,5 @@
 import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import HeaderContainer from './components/Header/HeaderContainer';
+import { Route, Navigate, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import ProfileContainer from './components/Profile/ProfileContainer';
@@ -15,15 +14,20 @@ import Preloader from './components/common/Preloader';
 import { initialize } from './redux/app-reducer';
 import withRouter from './hoc/withRouter';
 import { compose } from 'redux';
+import { AppStateType } from './redux/redux-store';
+import HeaderContainer from './components/Header/HeaderContainer';
 
-/* const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
-const News = lazy(() => import('./components/News/News'));
-const ProfileContainer = lazy(() => new Promise(resolve => 
-  setTimeout(() => resolve(import('./components/Profile/ProfileContainer')), 3000) // 3 секунды
-)); */
+type MapStatePropsType = {
+  initialized: boolean;
+}
 
+type MapDispatchPropsType = {
+  initialize: () => void;
+}
 
-class App extends Component {
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+class App extends Component<PropsType> {
   componentDidMount() {
     this.props.initialize()
   }
@@ -39,7 +43,7 @@ class App extends Component {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            <Route exact path="/" element={<Navigate to="profile/" replace/>} />
+            <Route path="/" element={<Navigate to="profile/" replace/>} />
             <Route path="profile/:userId?" element={<ProfileContainer />} />
             <Route path="users/" element={<UsersContainer />} />
             <Route path="music/" element={<Music />} />
@@ -54,12 +58,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
   initialized: state.app.initialized
 })
 
-export default compose(
-  connect(mapStateToProps, { initialize }),
+export default compose<React.ComponentType>(
+  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, { initialize }),
   withRouter)(App);
 
 
