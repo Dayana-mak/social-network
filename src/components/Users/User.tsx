@@ -1,5 +1,5 @@
 import styles from "./users.module.css";
-import defaultPhoto from "../../assets/images/defaultPhoto.jpeg";
+import defaultAvatar from "../../assets/images/default-avatar.svg";
 import { NavLink } from "react-router-dom";
 import { UserType } from "../../types/types";
 
@@ -22,7 +22,7 @@ const User: React.FC<UserPropsType> = ({
           <NavLink to={`/profile/${user.id}`}>
             <img
               src={
-                user.photos.small !== null ? user.photos.small : defaultPhoto
+                user.photos.small !== null ? user.photos.small : defaultAvatar
               }
               alt="аватар"
               className={styles.userPhoto}

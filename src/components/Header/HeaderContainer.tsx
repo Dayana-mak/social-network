@@ -8,6 +8,7 @@ type MapStatePropsType = {
   isAuth: boolean;
   login: string | null;
   email: string | null;
+  profileAvatar: string | null | undefined;
 };
 
 type MapDispatchPropsType = {
@@ -24,6 +25,7 @@ class HeaderContainer extends Component<PropsType> {
         logout={this.props.logout}
         isAuth={this.props.isAuth}
         login={this.props.login}
+        profileAvatar={this.props.profileAvatar}
       />
     );
   }
@@ -34,6 +36,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     isAuth: state.auth.isAuth,
     login: state.auth.login,
     email: state.auth.email,
+    profileAvatar: state.profilePage.profile?.photos.small
   };
 };
 

@@ -1,7 +1,7 @@
 import Preloader from "../../common/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
-import defaultPhoto from "../../../assets/images/defaultPhoto.jpeg";
+import defaultAvatar from "../../../assets/images/default-avatar.svg";
 import ProfileData from "./ProfileData";
 import { ChangeEvent, useState } from "react";
 import ProfileDataForm, { ProfileDataFormValuesType } from "./ProfileDataForm";
@@ -57,7 +57,7 @@ const ProfileInfo: React.FC<PropsType> = ({
       <div>
         <img
           className={s.image}
-          src={profile.photos.large || defaultPhoto}
+          src={profile.photos.large || defaultAvatar}
           alt="Profile avatar"
         />
         {isOwner && (

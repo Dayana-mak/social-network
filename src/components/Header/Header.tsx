@@ -1,28 +1,64 @@
-import { NavLink, redirect } from 'react-router-dom';
-import s from './Header.module.css'
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { NavLink } from "react-router-dom";
+import Diversity2Icon from "@mui/icons-material/Diversity2";
+import LogoutIcon from "@mui/icons-material/Logout";
+import defaultAvatar from "../../assets/images/default-avatar.svg";
 
 type PropsType = {
   logout: () => void;
   isAuth: boolean;
   login: string | null;
-}
-const Header: React.FC<PropsType> = ({ logout, isAuth, login}) => {
+  profileAvatar: string | null | undefined
+};
+const Header: React.FC<PropsType> = ({ logout, isAuth, login, profileAvatar}) => {
   const handleLogout = () => {
     logout();
-  }
+  };
   return (
-    <header className={s.header}>
-      <img src="https://steamuserimages-a.akamaihd.net/ugc/2296339440150148468/D1E7596B00EC41623A8121E5AEF8C96776B1AED3/?imw=512&imh=400&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
-           alt="Logo"/>
-
-      <div className={s.loginBlock}>
-        { isAuth 
-          ? <div>{login} <div><button onClick={handleLogout}>Logout</button></div></div> 
-          : <NavLink to={"/login"}>Login</NavLink>}
-        
-      </div>
-    </header>
-    );
-}
+    <AppBar position="static" elevation={0} sx={{ borderRadius: "12px" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Diversity2Icon fontSize="large" />
+          <Typography variant="h6" noWrap>
+            It-net
+          </Typography>
+        </Box>
+        <Box>
+          {isAuth ? (
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1}}>
+              <Avatar alt="user-avatar" sx={{ width: 34, height: 34 }} src={profileAvatar ? profileAvatar : defaultAvatar}/>
+              <Typography>{login}</Typography>
+              <IconButton
+                aria-label="logout"
+                color="inherit"
+                onClick={handleLogout}
+              >
+                <LogoutIcon />
+              </IconButton>
+              
+            </Box>
+          ) : (
+            <Button
+              variant="outlined"
+              color="inherit"
+              component={NavLink}
+              to={"/login"}
+            >
+              Login
+            </Button>
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Header;

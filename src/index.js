@@ -5,6 +5,8 @@ import store from "./redux/redux-store"
 import App from './App';
 import { Provider } from 'react-redux'
 import { BrowserRouter, HashRouter } from 'react-router-dom';
+import theme from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -12,7 +14,10 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <HashRouter>
-        <App />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
       </HashRouter>
     </Provider>
   </React.StrictMode>
