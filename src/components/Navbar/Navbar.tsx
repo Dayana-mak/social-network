@@ -1,21 +1,79 @@
+import {
+  Box,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
-import s from "./Navbar.module.css"
+import PersonIcon from "@mui/icons-material/Person";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
+const navItems = [
+  { label: "Profile", to: "/profile", icon: <PersonIcon /> },
+  { label: "Messages", to: "/dialogs", icon: <ForumOutlinedIcon /> },
+  { label: "Find users", to: "/users", icon: <GroupOutlinedIcon /> },
+  { label: "Settings", to: "/settings", icon: <SettingsOutlinedIcon /> },
+];
 
-const Navbar:React.FC = () => {
-  const setActive = ({ isActive }: { isActive: boolean }): string => isActive ? s.active_link : s.link;
-  return (
-    <nav className={s.nav}>
-      <ul>
-        <li className={s.item}><NavLink className={setActive} to="/profile">Profile</NavLink></li>
-        <li className={s.item}><NavLink className={setActive} to="/dialogs">Messages</NavLink></li>
-        <br />
-        <li className={s.item}><NavLink className={setActive} to="/users">Find users</NavLink></li>
-        <br />
-        <li className={s.item}><NavLink className={setActive} to="/settings">Settings</NavLink></li>
-      </ul>
-    </nav>
-    );
-}
+type PropsType = {
+  variant?: string;
+  open?: boolean;
+  onClose?: () => void;
+};
+const Navbar: React.FC<PropsType> = ({
+  variant = "permanent",
+  open = true,
+  onClose,
+}) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const drawerContent = (
+    <List>
+      {navItems.map((item) => (
+        <ListItemButton
+          key={item.label}
+          component={NavLink}
+          to={item.to}
+          onClick={onClose}
+          sx={{
+            borderRadius: 1,
+            mb: 1,
+            px: 2,
+            color: "text.primary",
+            "&.active": {
+              bgcolor: "action.hover",
+            },
+            "&:hover": {
+              bgcolor: "action.hover",
+            },
+            "& .MuiSvgIcon-root": {
+              color: "primary.main",
+            },
+          }}
+        >
+          <ListItemIcon sx={{ minWidth: 36 }}>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.label} />
+        </ListItemButton>
+      ))}
+    </List>
+  );
+
+  return variant === "temporary" ? (
+    <Drawer open={open} onClose={onClose}>
+      {drawerContent}
+    </Drawer>
+  ) : (
+      <Box component="nav" sx={{ display: { xs: "none", md: "block" } }}>
+        {drawerContent}
+      </Box>
+  );
+};
 
 export default Navbar;
