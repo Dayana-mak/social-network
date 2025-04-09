@@ -4,9 +4,7 @@ import {
   List,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
-  useMediaQuery,
-  useTheme,
+  ListItemText
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
@@ -31,8 +29,6 @@ const Navbar: React.FC<PropsType> = ({
   open = true,
   onClose,
 }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const drawerContent = (
     <List>
@@ -70,9 +66,18 @@ const Navbar: React.FC<PropsType> = ({
       {drawerContent}
     </Drawer>
   ) : (
-      <Box component="nav" sx={{ display: { xs: "none", md: "block" } }}>
-        {drawerContent}
-      </Box>
+    <Box
+      boxShadow={2}
+      borderRadius={1}
+      sx={{
+        width: "100%",
+        height: "100%",
+        p: 2,
+        display: { xs: "none", md: "block" },
+      }}
+    >
+      <Box component="nav">{drawerContent}</Box>
+    </Box>
   );
 };
 

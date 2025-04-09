@@ -19,7 +19,6 @@ const MyPosts: React.FC<PropsType> = ({posts, addPost}) => {
 
   return (
     <div>
-      <h2>My Posts</h2>
       <AddPostForm onSubmit={addNewPost} />
       <ul>{postsList}</ul>
     </div>

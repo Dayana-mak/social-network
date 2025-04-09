@@ -1,42 +1,23 @@
-import Preloader from "../../common/Preloader";
-import s from "./ProfileInfo.module.css";
-import ProfileStatus from "./ProfileStatus";
-import defaultAvatar from "../../../assets/images/default-avatar.svg";
 import ProfileData from "./ProfileData";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import ProfileDataForm, { ProfileDataFormValuesType } from "./ProfileDataForm";
 import { ProfileType } from "../../../types/types";
+import { Paper } from "@mui/material";
 
 type PropsType = {
   profile: ProfileType;
-  status: string;
-  updateUserStatus: (status: string) => void;
-  savePhoto: (file: File) => void;
   saveProfile: (profile: ProfileType) => void;
   isOwner: boolean;
 };
 const ProfileInfo: React.FC<PropsType> = ({
   profile,
-  status,
-  updateUserStatus,
   isOwner,
-  savePhoto,
   saveProfile,
 }) => {
   const [editMode, setEditMode] = useState(false);
 
-  if (!profile) {
-    return <Preloader />;
-  }
-
   const activateEditMode = () => {
     setEditMode(true);
-  };
-
-  const onPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      savePhoto(e.target.files[0]);
-    }
   };
 
   const onSubmit = (values: ProfileDataFormValuesType) => {
@@ -47,38 +28,23 @@ const ProfileInfo: React.FC<PropsType> = ({
       lookingForAJob: values.lookingForAJob,
       lookingForAJobDescription: values.lookingForAJobDescription,
       contacts: values.contacts as ProfileType["contacts"],
-    }
+    };
     saveProfile(updatedProfile);
     setEditMode(false);
   };
 
   return (
-    <div className={s.profile__wrapper}>
-      <div>
-        <img
-          className={s.image}
-          src={profile.photos.large || defaultAvatar}
-          alt="Profile avatar"
+    <Paper sx={{ position: "relative", p: 2, width: "100%" }}>
+      {editMode ? (
+        <ProfileDataForm profile={profile} onSubmit={onSubmit} />
+      ) : (
+        <ProfileData
+          profile={profile}
+          activateEditMode={activateEditMode}
+          isOwner={isOwner}
         />
-        {isOwner && (
-          <div>
-            <input type={"file"} onChange={onPhotoChange} />
-          </div>
-        )}
-        <ProfileStatus status={status} updateUserStatus={updateUserStatus} isOwner={isOwner}/>
-      </div>
-      <div className={s.descriprion}>
-        {editMode ? (
-          <ProfileDataForm profile={profile} onSubmit={onSubmit} />
-        ) : (
-          <ProfileData
-            profile={profile}
-            activateEditMode={activateEditMode}
-            isOwner={isOwner}
-          />
-        )}
-      </div>
-    </div>
+      )}
+    </Paper>
   );
 };
 

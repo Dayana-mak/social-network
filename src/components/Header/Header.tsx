@@ -32,6 +32,7 @@ const Header: React.FC<PropsType> = ({
   const handleLogout = () => {
     logout();
   };
+
   return (
     <AppBar position="static" elevation={0} sx={{ borderRadius: "12px" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>

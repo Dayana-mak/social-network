@@ -1,11 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import s from "./ProfileInfo.module.css";
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
+import { Box, TextField, Tooltip, Typography } from "@mui/material";
 
 type PropsType = {
-  status: string
-  updateUserStatus: (status: string) => void
-  isOwner: boolean
-}
+  status: string;
+  updateUserStatus: (status: string) => void;
+  isOwner: boolean;
+};
 const ProfileStatus: React.FC<PropsType> = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
@@ -29,33 +29,74 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
     setStatus(e.currentTarget.value);
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      deactivateEditMode();
+    }
+  };
+
   return (
-    <div>
+    <Box
+      sx={{
+        minHeight: 32,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       {!editMode && (
-        <div>
-          <p>
-            {" "}
-            <span className={s.propertyTitle}>Status:</span>{" "}
-            <span onDoubleClick={activateEditMode}>
-              {props.status || "-----"}
-            </span>
-          </p>
-        </div>
+        <Tooltip
+          title={props.isOwner ? "Double click to edit" : ""}
+          placement="right"
+          arrow
+          slotProps={{
+            tooltip: {
+              sx: {
+                bgcolor: "background.default",
+                color: "text.primary",
+                px: 2,
+                py: 1,
+                borderRadius: 1,
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+              },
+            },
+            arrow: {
+              sx: {
+                color: "background.default",
+              },
+            },
+          }}
+        >
+          <Typography
+            onDoubleClick={activateEditMode}
+            sx={{ cursor: props.isOwner ? "pointer" : "default" }}
+          >
+            {props.status || "-----"}
+          </Typography>
+        </Tooltip>
       )}
 
       {editMode && (
-        <div>
-          <span className={s.propertyTitle}>Status: </span>
-          <input
-            onChange={onStatusChange}
-            onBlur={deactivateEditMode}
-            autoFocus={true}
-            type="text"
-            value={status}
-          />
-        </div>
+        <TextField
+          value={status}
+          onChange={onStatusChange}
+          onBlur={deactivateEditMode}
+          onKeyDown={handleKeyDown}
+          autoFocus
+          type="text"
+          variant="standard"
+          fullWidth
+          size="small"
+          slotProps={{
+            input: {
+              style: {
+                paddingTop: 0,
+                paddingBottom: 0,
+              },
+            },
+          }}
+        ></TextField>
       )}
-    </div>
+    </Box>
   );
 };
 

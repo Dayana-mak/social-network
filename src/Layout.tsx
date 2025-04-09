@@ -1,17 +1,15 @@
-import { Box, Container, useTheme } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-  const theme = useTheme();
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         bgcolor: "background.default",
-        py: 2,
       }}
     >
       <Box
@@ -32,23 +30,15 @@ const Layout = () => {
           <HeaderContainer />
         </Box>
         <Box
-          borderRadius={1}
-          boxShadow={2}
           gridArea="nav"
-          sx={{
-            p: 2,
-          }}
         >
             <Navbar />
         </Box>
         <Box
           gridArea="main"
           component="main"
-          sx={{
-            p: 2,
-          }}
         >
-          <Container maxWidth="lg">
+          <Container maxWidth="lg" disableGutters>
             <Outlet />
           </Container>
         </Box>

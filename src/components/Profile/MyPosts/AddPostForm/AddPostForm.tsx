@@ -1,7 +1,8 @@
-import { Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik } from "formik";
 import { MyTextarea } from "../../../common/FormControls/FormControls";
 import { maxLengthConstructor } from "../../../../utils/validators/validators";
 import * as Yup from "yup";
+import { Button } from "@mui/material";
 
 const addPostFormValidation = Yup.object({
   newPostText: maxLengthConstructor(200)
@@ -33,7 +34,7 @@ const AddPostForm: React.FC<PropsType> = ({ onSubmit }) => {
           showErrorImmediately={true}
         />
 
-        <button type="submit">Add post</button>
+        <Button type="submit">Add post</Button>
       </Form>
     </Formik>
   );
