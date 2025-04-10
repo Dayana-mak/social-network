@@ -2,7 +2,7 @@ import ProfileData from "./ProfileData";
 import { useState } from "react";
 import ProfileDataForm, { ProfileDataFormValuesType } from "./ProfileDataForm";
 import { ProfileType } from "../../../types/types";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 type PropsType = {
   profile: ProfileType;
@@ -34,7 +34,7 @@ const ProfileInfo: React.FC<PropsType> = ({
   };
 
   return (
-    <Paper sx={{ position: "relative", p: 2, width: "100%" }}>
+    <Paper sx={{ position: "relative", p: 2, width: "100%", height: "100%" }}>
       {editMode ? (
         <ProfileDataForm profile={profile} onSubmit={onSubmit} />
       ) : (

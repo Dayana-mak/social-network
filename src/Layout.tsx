@@ -10,6 +10,7 @@ const Layout = () => {
         display: "flex",
         justifyContent: "center",
         bgcolor: "background.default",
+        py: 2
       }}
     >
       <Box

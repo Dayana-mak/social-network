@@ -16,6 +16,7 @@ const theme = createTheme({
     text: {
       primary: "#1C1C1E", //темный на светлом фоне
       secondary: "#FFFFFF", //белый на синем фоне
+      disabled: "#626d7a"
     },
   },
   typography: {
