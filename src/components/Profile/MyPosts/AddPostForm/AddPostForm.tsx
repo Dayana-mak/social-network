@@ -1,12 +1,13 @@
 import { Form, Formik } from "formik";
-import { MyTextarea, MyTextareaMUI } from "../../../common/FormControls/FormControls";
-import { maxLengthConstructor } from "../../../../utils/validators/validators";
+import { MyTextareaMUI } from "../../../common/FormControls/FormControls";
 import * as Yup from "yup";
 import { Box, Button, Paper } from "@mui/material";
 
 const addPostFormValidation = Yup.object({
-  newPostText: maxLengthConstructor(200)
-})
+  newPostText: Yup.string()
+    .required("Post cannot be empty")
+    .max(30, "Post must be at most 30 characters"),
+});
 
 export type AddPostFormValuesType = {
   newPostText: string
@@ -36,7 +37,6 @@ const AddPostForm: React.FC<PropsType> = ({ onSubmit }) => {
             label="Write a new post"
             name="newPostText"
             placeholder="Write a new post"
-            showErrorImmediately={true}
           />
 
           <Box sx={{display: "flex", justifyContent: "flex-end", mt: 2}}>

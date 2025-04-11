@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import s from "./FormControls.module.css";
-import { useField } from "formik";
+import { useField, useFormikContext } from "formik";
 
 type PropsType = {
   label?: string;
@@ -60,7 +60,10 @@ export const MyTextareaMUI: React.FC<PropsType> = ({
   ...props
 }) => {
   const [field, meta] = useField(props);
-  const showError = Boolean((showErrorImmediately || meta.touched) && meta.error);
+  const { submitCount } = useFormikContext();
+  const showError =
+    (meta.touched && meta.value.length > 0 && meta.error) || // ошибка длины — сразу
+    (submitCount > 0 && meta.value.trim().length === 0 && meta.error); // required — только после submit
 
   return (
     <TextField
@@ -72,8 +75,8 @@ export const MyTextareaMUI: React.FC<PropsType> = ({
       placeholder="Write a new post"
       variant="outlined"
       size="small"
-      error={showError}
-      helperText={showError ? meta.error : ""}
+      error={Boolean(showError)}
+      helperText={showError || ""}
       sx={{
         bgcolor: "#fff", // белый фон
         borderRadius: 1,
