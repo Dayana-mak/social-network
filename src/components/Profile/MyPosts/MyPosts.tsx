@@ -1,17 +1,18 @@
 import React from "react";
 import Post from "./Post/Post";
 import AddPostForm, { AddPostFormValuesType } from "./AddPostForm/AddPostForm";
-import { PostType } from "../../../types/types";
-import { Paper } from "@mui/material";
+import { PostType, ProfileType } from "../../../types/types";
+import { Box } from "@mui/material";
 
 type PropsType = {
   posts: Array<PostType>
   addPost: (newPostText: string) => void
+  profile: ProfileType | null
 }
 
-const MyPosts: React.FC<PropsType> = ({posts, addPost}) => {
+const MyPosts: React.FC<PropsType> = ({posts, addPost, profile}) => {
   const postsList = posts.map((post) => (
-    <Post key={post.id} text={post.text} likesCount={post.likesCount} />
+    <Post key={post.id} text={post.text} likesCount={post.likesCount} profile={profile}/>
   ));
 
   const addNewPost = (values: AddPostFormValuesType) => {
@@ -19,10 +20,10 @@ const MyPosts: React.FC<PropsType> = ({posts, addPost}) => {
   };
 
   return (
-    <div>
+    <Box>
         <AddPostForm onSubmit={addNewPost} />
-      <ul>{postsList}</ul>
-    </div>
+      <Box mt={2}>{postsList}</Box>
+    </Box>
   );
 };
 
