@@ -2,6 +2,7 @@ import React from "react";
 import Post from "./Post/Post";
 import AddPostForm, { AddPostFormValuesType } from "./AddPostForm/AddPostForm";
 import { PostType } from "../../../types/types";
+import { Paper } from "@mui/material";
 
 type PropsType = {
   posts: Array<PostType>
@@ -19,7 +20,7 @@ const MyPosts: React.FC<PropsType> = ({posts, addPost}) => {
 
   return (
     <div>
-      <AddPostForm onSubmit={addNewPost} />
+        <AddPostForm onSubmit={addNewPost} />
       <ul>{postsList}</ul>
     </div>
   );

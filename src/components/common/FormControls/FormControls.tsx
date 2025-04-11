@@ -1,17 +1,23 @@
+import { TextField } from "@mui/material";
 import s from "./FormControls.module.css";
 import { useField } from "formik";
 
 type PropsType = {
-  label?: string
-  id?: string
-  name: string
+  label?: string;
+  id?: string;
+  name: string;
   children?: React.ReactNode;
-  type?: string
-  placeholder?: string
-  showErrorImmediately?: boolean
-}
+  type?: string;
+  placeholder?: string;
+  showErrorImmediately?: boolean;
+  rows?: number
+};
 
-export const MyTextInput: React.FC<PropsType> = ({ label, showErrorImmediately, ...props }) => {
+export const MyTextInput: React.FC<PropsType> = ({
+  label,
+  showErrorImmediately,
+  ...props
+}) => {
   const [field, meta] = useField(props);
 
   return (
@@ -27,7 +33,11 @@ export const MyTextInput: React.FC<PropsType> = ({ label, showErrorImmediately, 
   );
 };
 
-export const MyTextarea: React.FC<PropsType> = ({ label, showErrorImmediately, ...props }) => {
+export const MyTextarea: React.FC<PropsType> = ({
+  label,
+  showErrorImmediately,
+  ...props
+}) => {
   const [field, meta] = useField(props);
 
   return (
@@ -40,6 +50,46 @@ export const MyTextarea: React.FC<PropsType> = ({ label, showErrorImmediately, .
         <div className={s.error}>{meta.error}</div>
       ) : null}
     </div>
+  );
+};
+
+export const MyTextareaMUI: React.FC<PropsType> = ({
+  label,
+  showErrorImmediately,
+  rows = 3,
+  ...props
+}) => {
+  const [field, meta] = useField(props);
+  const showError = Boolean((showErrorImmediately || meta.touched) && meta.error);
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      multiline
+      rows={rows}
+      fullWidth
+      placeholder="Write a new post"
+      variant="outlined"
+      size="small"
+      error={showError}
+      helperText={showError ? meta.error : ""}
+      sx={{
+        bgcolor: "#fff", // белый фон
+        borderRadius: 1,
+        "& .MuiOutlinedInput-root": {
+          borderRadius: 1,
+        },
+        "& .MuiInputBase-input": {
+          fontSize: "0.95rem",
+          color: "text.primary",
+        },
+        "& .MuiInputBase-input::placeholder": {
+          color: "#6D6D6D",
+          opacity: 1,
+        },
+      }}
+    />
   );
 };
 
