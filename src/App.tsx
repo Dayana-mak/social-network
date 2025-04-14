@@ -6,14 +6,13 @@ import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import LoginPage from "./Login/Login";
-import { Component, lazy, Suspense } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
 import Preloader from "./components/common/Preloader";
 import { initialize } from "./redux/app-reducer";
 import withRouter from "./hoc/withRouter";
 import { compose } from "redux";
 import { AppStateType } from "./redux/redux-store";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import Layout from "./Layout";
 
 type MapStatePropsType = {
@@ -44,7 +43,7 @@ class App extends Component<PropsType> {
           <Route path="users/" element={<UsersContainer />} />
           <Route path="settings/" element={<Settings />} />
           <Route path="login/" element={<LoginPage />} />
-          <Route path="dialogs/*" element={<DialogsContainer />} />
+          <Route path="dialogs/:dialogId?" element={<DialogsContainer />} />
         </Route>
       </Routes>
     );

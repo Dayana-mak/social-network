@@ -21,7 +21,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
     <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} />
   ));
   const messagesList = state.messages.map((message) => (
-    <MessageItem key={message.id} text={message.text} id={message.id} />
+    <MessageItem key={message.id} text={message.text} id={message.id}/>
   ));
 
   const addNewMessage = (values: ValuesType) => {

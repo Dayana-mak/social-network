@@ -38,8 +38,8 @@ type ActionTypes = InferActionsType<typeof dialogsActions>
 
 
 export const dialogsActions = {
-  sendMessage: (newMessageBody: string) => {
-    return {type: SEND_MESSAGE, newMessageBody}
+  sendMessage: (newMessageBody: string, dialogId: number) => {
+    return {type: SEND_MESSAGE, newMessageBody, dialogId}
   }
 }
 

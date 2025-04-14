@@ -1,68 +1,53 @@
-import { useState } from "react";
-import styles from "./paginator.module.css";
+import { Pagination } from "@mui/material";
 
 type PropsType = {
-  totalItemsCount: number
-  pageSize: number
-  currentPage: number
-  onPageChange: (pageNumber: number) => void
-  portionSize?: number
-}
+  totalItemsCount: number;
+  pageSize: number;
+  currentPage: number;
+  onPageChange: (pageNumber: number) => void;
+};
 
 const Paginator: React.FC<PropsType> = ({
   totalItemsCount,
   pageSize,
   currentPage,
   onPageChange,
-  portionSize = 10,
 }) => {
   const pagesCount: number = Math.ceil(totalItemsCount / pageSize);
 
-  const pages: Array<number> = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
-  const portionsCount = Math.ceil(pagesCount / portionSize);
-  const [portionNumber, setPortionNumber] = useState(1);
-  let leftPortionPageNumber = (portionNumber - 1) * pageSize + 1;
-  let rightPortionPageNumber = portionNumber * pageSize;
-
-  const onNextClick = (): void => {
-    setPortionNumber(portionNumber + 1);
-  }
-
-  const onPrevClick = ():void => {
-    setPortionNumber(portionNumber - 1)
-  }
-
   return (
-    <div>
-      {portionNumber > 1 && (
-        <button onClick={onPrevClick}>
-          PREV
-        </button>
-      )}
-      {pages
-        .filter(
-          (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
-        )
-        .map((p) => (
-          <span
-            key={p}
-            className={`${currentPage === p ? styles.selectedPage : ""} ${styles.pageNum}`}
-            onClick={() => onPageChange(p)}
-          >
-            {p}
-          </span>
-        ))}
-
-      {portionNumber < portionsCount && (
-        <button onClick={onNextClick}>
-          NEXT
-        </button>
-      )}
-    </div>
+    <Pagination
+      count={pagesCount}
+      siblingCount={4}
+      boundaryCount={1}
+      variant="outlined"
+      shape="rounded"
+      page={currentPage}
+      onChange={(_, num) => onPageChange(num)}
+      size="large"
+      sx={{
+        "& .MuiPaginationItem-root": {
+          color: "#1C1C1E", // цвет текста обычных кнопок
+          borderColor: "#dcdcdc",
+          backgroundColor: "#e0e0e0",
+        },
+        "& .MuiPaginationItem-root:hover": {
+          backgroundColor: "#d0d0d0", // при наведении
+        },
+        "& .Mui-selected": {
+          color: "#fff", // цвет текста активной кнопки
+          backgroundColor: "#617BFF", // цвет фона активной кнопки
+          borderColor: "#617BFF",
+        },
+        "& .Mui-selected:hover": {
+          backgroundColor: "#4f65d4", // цвет при наведении на активную
+        },
+        "& .MuiPaginationItem-ellipsis": {
+          backgroundColor: "transparent",
+          pointerEvents: "none", // отключить hover-эффекты
+        },
+      }}
+    />
   );
 };
 
