@@ -38,8 +38,14 @@ const Layout = () => {
         <Box
           gridArea="main"
           component="main"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            minHeight: "100vh",
+          }}
         >
-          <Container maxWidth="lg" disableGutters>
+          <Container maxWidth="lg" disableGutters sx={{ flexGrow: 1 }}>
             <Outlet />
           </Container>
         </Box>

@@ -1,9 +1,8 @@
 import React from "react";
-import s from "./Dialogs.module.css";
-import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
-import AddMessageForm from "./AddMessageForm/AddMessageForm";
 import { InitialStateType } from "../../redux/dialogs-reducer";
+import { List, Paper } from "@mui/material";
+
 
 type PropsType = {
   dialogsPage: InitialStateType;
@@ -14,28 +13,19 @@ type ValuesType = {
   newMessageText: string;
 };
 
-const Dialogs: React.FC<PropsType> = (props) => {
-  const state = props.dialogsPage;
-
-  const dialogsList = state.dialogs.map((dialog) => (
-    <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} />
-  ));
-  const messagesList = state.messages.map((message) => (
-    <MessageItem key={message.id} text={message.text} id={message.id}/>
+const Dialogs: React.FC<PropsType> = ({dialogsPage, sendMessage}) => {
+  const dialogsList = dialogsPage.dialogs.map((dialog) => (
+    <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} avatar={dialog.avatar} messages={dialog.messages}/>
   ));
 
   const addNewMessage = (values: ValuesType) => {
-    props.sendMessage(values.newMessageText);
+    sendMessage(values.newMessageText);
   };
 
   return (
-    <div className={s.dialogs}>
-      <ul className={s.dialogs__list}>{dialogsList}</ul>
-      <div>
-        <ul className={s.messages}>{messagesList}</ul>
-        <AddMessageForm onSubmit={addNewMessage} />
-      </div>
-    </div>
+    <Paper sx={{height: "100%"}}>
+      <List>{dialogsList}</List>
+    </Paper>
   );
 };
 

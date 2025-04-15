@@ -34,11 +34,15 @@ export type UserType = {
 export type DialogType = {
   id: number;
   name: string;
+  avatar: string;
+  messages: MessageType[]
 };
 
 export type MessageType = {
   id: number;
   text: string;
+  fromMe: boolean;
+  date: string;
 };
 
 export type PostType = {
