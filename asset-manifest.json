@@ -1,15 +1,18 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.288ea345.css",
-    "main.js": "/my-app/static/js/main.afbe5bd5.js",
+    "main.css": "/my-app/static/css/main.ae63c41f.css",
+    "main.js": "/my-app/static/js/main.a21dac27.js",
+    "static/media/JohnnyDeppAvatar.jpeg": "/my-app/static/media/JohnnyDeppAvatar.0c0d4fc1a5849fc82ce2.jpeg",
+    "static/media/MargotRobbieAvatar.jpeg": "/my-app/static/media/MargotRobbieAvatar.4cb1736f0a7fdb3e0513.jpeg",
+    "static/media/LeonardoDiCaprioAvatar.jpeg": "/my-app/static/media/LeonardoDiCaprioAvatar.316ae26c784d2ece85f8.jpeg",
     "index.html": "/my-app/index.html",
     "static/media/preloader.svg": "/my-app/static/media/preloader.b418bc5e0e89c85a6bccb7b45bab72f8.svg",
     "static/media/default-avatar.svg": "/my-app/static/media/default-avatar.8635fbabca748f595d1cfc68178fb468.svg",
-    "main.288ea345.css.map": "/my-app/static/css/main.288ea345.css.map",
-    "main.afbe5bd5.js.map": "/my-app/static/js/main.afbe5bd5.js.map"
+    "main.ae63c41f.css.map": "/my-app/static/css/main.ae63c41f.css.map",
+    "main.a21dac27.js.map": "/my-app/static/js/main.a21dac27.js.map"
   },
   "entrypoints": [
-    "static/css/main.288ea345.css",
-    "static/js/main.afbe5bd5.js"
+    "static/css/main.ae63c41f.css",
+    "static/js/main.a21dac27.js"
   ]
 }
