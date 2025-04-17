@@ -2,11 +2,13 @@ import { Box, Paper } from "@mui/material";
 import { UserType } from "../../types/types";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import Preloader from "../common/Preloader";
 
 type PropsType = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
+  isLoading: boolean;
   onPageChange: (pageNumber: number) => void;
   followingInProgress: Array<number>;
   follow: (userId: number) => void;
@@ -23,6 +25,7 @@ const Users: React.FC<PropsType> = ({
   follow,
   unfollow,
   users,
+  isLoading,
 }) => {
   return (
     <Paper sx={{ p: 2, width: "100%", height: "100%" }}>
@@ -43,15 +46,19 @@ const Users: React.FC<PropsType> = ({
           },
         }}
       >
-        {users.map((user) => (
-          <User
-            user={user}
-            key={user.id}
-            followingInProgress={followingInProgress}
-            unfollow={unfollow}
-            follow={follow}
-          />
-        ))}
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          users.map((user) => (
+            <User
+              user={user}
+              key={user.id}
+              followingInProgress={followingInProgress}
+              unfollow={unfollow}
+              follow={follow}
+            />
+          ))
+        )}
       </Box>
     </Paper>
   );

@@ -43,12 +43,12 @@ class UsersContainer extends Component<PropsType> {
   render() {
     return (
       <>
-        {this.props.isLoading ? <Preloader /> : null}
         <Users
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
           users={this.props.users}
+          isLoading={this.props.isLoading}
           onPageChange={this.onPageChange}
           follow={this.props.follow}
           unfollow={this.props.unfollow}

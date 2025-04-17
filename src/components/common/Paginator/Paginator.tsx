@@ -20,7 +20,6 @@ const Paginator: React.FC<PropsType> = ({
       count={pagesCount}
       siblingCount={4}
       boundaryCount={1}
-      variant="outlined"
       shape="rounded"
       page={currentPage}
       onChange={(_, num) => onPageChange(num)}
@@ -34,7 +33,7 @@ const Paginator: React.FC<PropsType> = ({
         "& .MuiPaginationItem-root:hover": {
           backgroundColor: "#d0d0d0", // при наведении
         },
-        "& .Mui-selected": {
+        "& .MuiPaginationItem-root.Mui-selected": {
           color: "#fff", // цвет текста активной кнопки
           backgroundColor: "#617BFF", // цвет фона активной кнопки
           borderColor: "#617BFF",
