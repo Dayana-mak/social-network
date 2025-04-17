@@ -10,7 +10,9 @@ type PropsType = {
   type?: string;
   placeholder?: string;
   showErrorImmediately?: boolean;
-  rows?: number
+  rows?: number;
+  maxRows?: number;
+  minRows?: number;
 };
 
 export const MyTextInput: React.FC<PropsType> = ({
@@ -56,7 +58,8 @@ export const MyTextarea: React.FC<PropsType> = ({
 export const MyTextareaMUI: React.FC<PropsType> = ({
   label,
   showErrorImmediately,
-  rows = 3,
+  maxRows = 10,
+  minRows = 1,
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -70,9 +73,9 @@ export const MyTextareaMUI: React.FC<PropsType> = ({
       {...field}
       {...props}
       multiline
-      rows={rows}
+      maxRows={maxRows}
+      minRows={minRows}
       fullWidth
-      placeholder="Write a new post"
       variant="outlined"
       size="small"
       error={Boolean(showError)}
@@ -95,6 +98,8 @@ export const MyTextareaMUI: React.FC<PropsType> = ({
     />
   );
 };
+
+
 
 export const MyCheckbox: React.FC<PropsType> = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: "checkbox" });

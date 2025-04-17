@@ -37,6 +37,7 @@ const AddPostForm: React.FC<PropsType> = ({ onSubmit }) => {
             label="Write a new post"
             name="newPostText"
             placeholder="Write a new post"
+            minRows={3}
           />
 
           <Box sx={{display: "flex", justifyContent: "flex-end", mt: 2}}>

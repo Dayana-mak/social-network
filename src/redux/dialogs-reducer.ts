@@ -5,7 +5,7 @@ import LeonardoDiCaprioAvatar from "../assets/images/dialogs-avatars/LeonardoDiC
 import MargotRobbieAvatar from "../assets/images/dialogs-avatars/MargotRobbieAvatar.jpeg";
 
 const SEND_MESSAGE = "SN/DIALOGS/SEND-MESSAGE" as const;
-const SET_ACTIVE_DIALOG = "SN/DIALOGS/SET-ACTIVE-DIALOG" as const;
+
 
 const initialState = {
   dialogs: [
@@ -79,7 +79,6 @@ const initialState = {
       ],
     },
   ] as Array<DialogType>,
-  activeDialogId: null as number | null,
 };
 
 export type InitialStateType = typeof initialState;
@@ -90,22 +89,18 @@ const dialogsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case SEND_MESSAGE:
+      const { dialogId, ...newMessage } = action.payload;
       return {
         ...state,
         dialogs: state.dialogs.map((dialog) => {
-          if (dialog.id === state.activeDialogId) {
+          if (dialog.id === dialogId) {
             return {
               ...dialog,
-              messages: [...dialog.messages, action.payload],
+              messages: [...dialog.messages, newMessage],
             };
           }
           return dialog;
         }),
-      };
-    case SET_ACTIVE_DIALOG:
-      return {
-        ...state,
-        activeDialogId: action.payload,
       };
     default:
       return state;
@@ -115,10 +110,10 @@ const dialogsReducer = (
 type ActionTypes = InferActionsType<typeof dialogsActions>;
 
 export const dialogsActions = {
-  setActiveDialog: (id: number) => ({ type: SET_ACTIVE_DIALOG, payload: id }),
-  sendMessage: (text: string) => ({
+  sendMessage: (dialogId: number, text: string) => ({
     type: SEND_MESSAGE,
     payload: {
+      dialogId,
       id: Date.now(),
       fromMe: true,
       text,

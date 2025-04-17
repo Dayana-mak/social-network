@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Navigate, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";

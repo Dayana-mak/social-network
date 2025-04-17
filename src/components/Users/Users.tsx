@@ -1,4 +1,4 @@
-import { Box, Pagination, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { UserType } from "../../types/types";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";

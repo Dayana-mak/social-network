@@ -2,7 +2,7 @@ import ProfileData from "./ProfileData";
 import { useState } from "react";
 import ProfileDataForm, { ProfileDataFormValuesType } from "./ProfileDataForm";
 import { ProfileType } from "../../../types/types";
-import { Paper, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 
 type PropsType = {
   profile: ProfileType;
