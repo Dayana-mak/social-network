@@ -4,6 +4,7 @@ import LoginForm from "./LoginForm";
 import { Navigate } from "react-router-dom";
 import { AppStateType } from "../redux/redux-store";
 import { FormikHelpers } from "formik";
+import { Box, Paper, Typography } from "@mui/material";
 
 type LoginFormValues = {
   email: string;
@@ -33,7 +34,7 @@ const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
     values: LoginFormValues,
     { setSubmitting, setStatus, setFieldValue }: FormikHelpers<LoginFormValues>
   ): Promise<void> => {
-    const  { email, password, rememberMe, captcha } = values;
+    const { email, password, rememberMe, captcha } = values;
     const errorMessage = await login(email, password, rememberMe, captcha);
     if (errorMessage) {
       setStatus(errorMessage);
@@ -47,10 +48,18 @@ const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
-    </div>
+    <Paper
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Box sx={{mt:2}}>
+        <Typography variant={"h3"} textAlign={"center"} mb={2}>Login</Typography>
+        <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+      </Box>
+    </Paper>
   );
 };
 

@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import s from "./FormControls.module.css";
 import { useField, useFormikContext } from "formik";
 
@@ -13,6 +13,83 @@ type PropsType = {
   rows?: number;
   maxRows?: number;
   minRows?: number;
+};
+
+type TextInputPropsType = {
+  name: string;
+  label?: string;
+  type?: string;
+  placeholder?: string;
+  fullWidth?: boolean;
+  showErrorImmediately?: boolean;
+};
+
+export const MyTextInputMUI: React.FC<TextInputPropsType> = ({
+  label,
+  showErrorImmediately,
+  ...props
+}) => {
+  const [field, meta] = useField(props);
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      label={label}
+      variant="filled"
+      size="small"
+      error={showErrorImmediately}
+      helperText={meta.error}
+      fullWidth={props.fullWidth ?? true}
+      sx={{
+        mb: 2,
+        "& .MuiFilledInput-root": {
+          borderRadius: 0,
+          backgroundColor: "#F1F3F9",
+        },
+        "& .MuiInputBase-input": {
+          fontSize: "0.95rem",
+          "::placeholder": {
+            color: "#6D6D6D",
+            opacity: 1,
+          },
+        },
+        "& .MuiInputLabel-root": {
+          color: "#6D6D6D",
+        },
+        "& .MuiInputLabel-root.Mui-focused": {
+          color: "primary.main",
+        },
+        "& .MuiFormHelperText-root": {
+          color: "error.main",
+          fontSize: "0.75rem",
+        },
+      }}
+    />
+  );
+};
+
+type CheckboxProps = {
+  name: string;
+  label: string;
+};
+
+export const MyCheckboxMUI: React.FC<CheckboxProps> = ({ name, label }) => {
+  const [field, meta] = useField({ name, type: "checkbox" });
+
+  return (
+    <FormControlLabel
+      sx={{ cursor: "pointer" }}
+      control={
+        <Checkbox
+          {...field}
+          checked={field.value}
+          sx={{ color: "text.primary" }}
+        />
+      }
+      label={label}
+    />
+  );
 };
 
 export const MyTextInput: React.FC<PropsType> = ({
@@ -98,8 +175,6 @@ export const MyTextareaMUI: React.FC<PropsType> = ({
     />
   );
 };
-
-
 
 export const MyCheckbox: React.FC<PropsType> = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: "checkbox" });
