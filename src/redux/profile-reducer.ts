@@ -9,13 +9,15 @@ const SET_USER_PROFILE = "SN/PROFILE/SET_USER_PROFILE" as const;
 const SET_USER_STATUS = "SN/PROFILE/SET_USER_STATUS" as const;
 const SAVE_PHOTO_SUCCESS = "SN/PROFILE/SAVE_PHOTO_SUCCESS" as const;
 const SAVE_PROFILE_SUCCESS = "SN/PROFILE/SAVE_PROFILE_SUCCESS" as const;
+const TOGGLE_LIKE = "SN/PROFILE/TOGGLE_LIKE" as const;
 
 
 const initialState = {
   posts: [
-    { id: 1, text: "Hey, why nobody love me?", likesCount: 10 },
-    { id: 2, text: "It's our new program! Hey!", likesCount: 20 },
-    { id: 3, text: "I'm tired", likesCount: 200 },
+    { id: 1, text: "Hey, how is everything?", likesCount: 10, isLiked: false },
+    { id: 2, text: "My new post", likesCount: 20, isLiked: false  },
+    { id: 3, text: "I'm happy", likesCount: 200, isLiked: false  },
+    { id: 4, text: "Nice to see you on my page", likesCount: 100, isLiked: false },
   ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: "",
@@ -33,6 +35,7 @@ const profileReducer = (
         id: state.posts.length + 1,
         text: action.newPostText,
         likesCount: 0,
+        isLiked: false
       };
       return {
         ...state,
@@ -57,6 +60,21 @@ const profileReducer = (
       return {
         ...state,
         profile: { ...action.profile },
+      };
+    case TOGGLE_LIKE:
+      return {
+        ...state,
+        posts: state.posts.map(post => {
+          if (post.id === action.postId) {
+            const newIsLiked = !post.isLiked;
+            return {
+              ...post,
+              isLiked: newIsLiked,
+              likesCount: newIsLiked ? post.likesCount + 1 : post.likesCount - 1
+            }
+          }
+          return post;
+        })
       };
     default:
       return state;
@@ -86,6 +104,10 @@ export const profileActions = {
     type: SAVE_PROFILE_SUCCESS,
     profile,
   }),
+  toggleLike: (postId: number) => ({
+    type: TOGGLE_LIKE,
+    postId
+  })
 };
 
 type DispatchType = ThunkDispatch<AppStateType, unknown, ActionTypes>;

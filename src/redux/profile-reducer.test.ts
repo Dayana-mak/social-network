@@ -2,9 +2,9 @@ import profileReducer, { profileActions } from "./profile-reducer";
 
 let state = {
   posts: [
-    {id: 1, text:"Hey, why nobody love me?", likesCount: 10},
-    {id: 2, text:"It's our new program! Hey!", likesCount: 20},
-    {id: 3, text:"I'm tired", likesCount: 200}
+    {id: 1, text:"Hey, why nobody love me?", likesCount: 10, isLiked: false},
+    {id: 2, text:"It's our new program! Hey!", likesCount: 20, isLiked: false},
+    {id: 3, text:"I'm tired", likesCount: 200, isLiked: false}
   ],
   profile: null,
   status: "",

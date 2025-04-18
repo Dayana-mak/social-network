@@ -38,7 +38,7 @@ const Profile: React.FC<PropsType> = (props) => {
               />
             </Grid>
             <Grid size={{xs: 12, md: 6}}>
-              <MyPostsContainer />
+              <MyPostsContainer isOwner={props.isOwner}/>
             </Grid>
           </Grid>
     </Box>
