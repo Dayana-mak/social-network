@@ -12,12 +12,14 @@ import { compose } from "redux";
 import withRouter, { RouterProps } from "../../hoc/withRouter";
 import { ProfileType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 type MapStatePropsType = {
   profile: ProfileType;
   status: string;
   authorizedUserId: number | null;
-}
+  isAuth: boolean;
+};
 
 type MapDispatchPropsType = {
   getUserProfile: (userId: number) => void;
@@ -32,16 +34,19 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & RouterProps;
 class ProfileContainer extends Component<PropsType> {
   refreshProfile() {
     const idStr = this.props.router.params.userId;
-    let userId: number | null = idStr ? +idStr : null
+    let userId: number | null = idStr ? +idStr : null;
+
+    if (!userId && !this.props.isAuth) {
+      this.props.router.navigate("/login");
+      return;
+    }
     if (!userId) {
       userId = this.props.authorizedUserId;
-      if (!userId) {
-        this.props.router.navigate("/login");
-        return;
-      }
     }
-    this.props.getUserProfile(userId);
-    this.props.getUserStatus(userId);
+    if (userId !== null) {
+      this.props.getUserProfile(userId);
+      this.props.getUserStatus(userId);
+    }
   }
 
   componentDidMount() {
@@ -49,8 +54,15 @@ class ProfileContainer extends Component<PropsType> {
   }
 
   componentDidUpdate(prevProps: PropsType, prevState: AppStateType) {
-    if (this.props.router.params.userId !== prevProps.router.params.userId) {
+    const currentUserId = this.props.router.params.userId;
+    const prevUserId = prevProps.router.params.userId;
+
+    if (currentUserId !== prevUserId) {
       this.refreshProfile();
+    }
+
+    if (!this.props.isAuth && !currentUserId) {
+      this.props.router.navigate("/login");
     }
   }
   render() {
@@ -72,6 +84,7 @@ const mapStateToProps = (state: AppStateType) => {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth,
   };
 };
 
