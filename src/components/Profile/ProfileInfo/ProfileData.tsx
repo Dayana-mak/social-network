@@ -18,10 +18,10 @@ import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PublicIcon from "@mui/icons-material/Public";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
 type PropsType = {
   profile: ProfileType;
@@ -41,7 +41,6 @@ const contactDisplayNames: { [key in keyof ProfileType["contacts"]]: string } =
     mainLink: "Telegram",
   };
 
-
 const ProfileData: React.FC<PropsType> = ({
   profile,
   activateEditMode,
@@ -49,10 +48,8 @@ const ProfileData: React.FC<PropsType> = ({
 }) => {
   return (
     <Box>
-      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Информация о профиле
-        </Typography>
+      <Box sx={{ display: "flex", mb: 2, gap: 1, alignItems: "center" }}>
+        <Typography variant="h6">Profile info</Typography>
         {isOwner && (
           <Button
             variant="text"
@@ -60,7 +57,7 @@ const ProfileData: React.FC<PropsType> = ({
             onClick={activateEditMode}
             sx={{ textTransform: "none" }}
           >
-            Редактировать
+            Edit
           </Button>
         )}
       </Box>
@@ -84,26 +81,33 @@ const ProfileData: React.FC<PropsType> = ({
         </Typography>
         <Typography>{profile.lookingForAJob ? "yes" : "no"}</Typography>
       </Box>
-      <Box display="flex" alignItems="center" mb={1}>
-        <InfoOutlinedIcon
-          fontSize="small"
-          sx={{ mr: 1, color: "text.disabled" }}
-        />
-        <Typography component="h3" sx={{ color: "text.disabled", mr: 1 }}>
-          About me:
-        </Typography>
-        <Typography>{profile.aboutMe}</Typography>
+      <Box display="flex" flexDirection={"column"} mb={1}>
+        <Box display="flex" alignItems={"center"}>
+          <InfoOutlinedIcon
+            fontSize="small"
+            sx={{ mr: 1, color: "text.disabled" }}
+          />
+          <Typography component="h3" sx={{ color: "text.disabled", mr: 1 }}>
+            About me:
+          </Typography>
+        </Box>
+        <Typography sx={{ ml: "28px" }}>{profile.aboutMe}</Typography>
       </Box>
-      <Box display="flex" alignItems="center" mb={1}>
-        <CodeOutlinedIcon
-          fontSize="small"
-          sx={{ mr: 1, color: "text.disabled" }}
-        />
-        <Typography component="h3" sx={{ color: "text.disabled", mr: 1 }}>
-          My professional skills:
+      <Box display="flex" flexDirection={"column"} mb={1}>
+        <Box display="flex" alignItems={"center"}>
+          <CodeOutlinedIcon
+            fontSize="small"
+            sx={{ mr: 1, color: "text.disabled" }}
+          />
+          <Typography component="h3" sx={{ color: "text.disabled", mr: 1 }}>
+            My professional skills:
+          </Typography>
+        </Box>
+        <Typography sx={{ ml: "28px" }}>
+          {profile.lookingForAJobDescription}
         </Typography>
-        <Typography>{profile.lookingForAJobDescription}</Typography>
       </Box>
+
       <Divider sx={{ my: 2 }} />
       <Box display="flex" alignItems="center" mb={1}>
         <LocalPhoneOutlinedIcon
@@ -150,7 +154,7 @@ const ProfileData: React.FC<PropsType> = ({
   );
 };
 
-const getContactIcon = (key: string) => {
+export const getContactIcon = (key: string) => {
   switch (key.toLowerCase()) {
     case "github":
       return (
@@ -197,6 +201,5 @@ const getContactIcon = (key: string) => {
       );
   }
 };
-
 
 export default ProfileData;
