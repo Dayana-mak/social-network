@@ -38,7 +38,7 @@ const Paginator: React.FC<PropsType> = ({
           backgroundColor: "#617BFF", // цвет фона активной кнопки
           borderColor: "#617BFF",
         },
-        "& .Mui-selected:hover": {
+        "& .MuiPaginationItem-root.Mui-selected:hover": {
           backgroundColor: "#4f65d4", // цвет при наведении на активную
         },
         "& .MuiPaginationItem-ellipsis": {
