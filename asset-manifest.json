@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/social-network/static/css/main.ae63c41f.css",
-    "main.js": "/social-network/static/js/main.e3fd42a5.js",
+    "main.css": "/social-network/static/css/main.9278e602.css",
+    "main.js": "/social-network/static/js/main.99165662.js",
     "static/media/JohnnyDeppAvatar.jpeg": "/social-network/static/media/JohnnyDeppAvatar.0c0d4fc1a5849fc82ce2.jpeg",
     "static/media/MargotRobbieAvatar.jpeg": "/social-network/static/media/MargotRobbieAvatar.4cb1736f0a7fdb3e0513.jpeg",
     "static/media/LeonardoDiCaprioAvatar.jpeg": "/social-network/static/media/LeonardoDiCaprioAvatar.316ae26c784d2ece85f8.jpeg",
     "index.html": "/social-network/index.html",
     "static/media/preloader.svg": "/social-network/static/media/preloader.23593daf2fef7db9689b73121c07c773.svg",
     "static/media/default-avatar.svg": "/social-network/static/media/default-avatar.8635fbabca748f595d1cfc68178fb468.svg",
-    "main.ae63c41f.css.map": "/social-network/static/css/main.ae63c41f.css.map",
-    "main.e3fd42a5.js.map": "/social-network/static/js/main.e3fd42a5.js.map"
+    "main.9278e602.css.map": "/social-network/static/css/main.9278e602.css.map",
+    "main.99165662.js.map": "/social-network/static/js/main.99165662.js.map"
   },
   "entrypoints": [
-    "static/css/main.ae63c41f.css",
-    "static/js/main.e3fd42a5.js"
+    "static/css/main.9278e602.css",
+    "static/js/main.99165662.js"
   ]
 }
