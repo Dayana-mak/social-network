@@ -1,8 +1,8 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { MyTextareaMUI } from "../../common/FormControls/FormControls";
 import { Box, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import { MyTextareaMUI } from "../../common/FormControls/TextareaMUI";
 
 type ValuesType = {
   newMessageText: string;

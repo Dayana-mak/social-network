@@ -1,12 +1,12 @@
 import { Form, Formik } from "formik";
-import { MyTextareaMUI } from "../../../common/FormControls/FormControls";
+import { MyTextareaMUI } from "../../../common/FormControls/TextareaMUI";
 import * as Yup from "yup";
 import { Box, Button, Paper } from "@mui/material";
 
 const addPostFormValidation = Yup.object({
   newPostText: Yup.string()
     .required("Post cannot be empty")
-    .max(30, "Post must be at most 30 characters"),
+    .max(200, "Post must be at most 200 characters"),
 });
 
 export type AddPostFormValuesType = {

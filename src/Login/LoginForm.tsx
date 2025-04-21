@@ -1,9 +1,7 @@
 import { Form, Formik, FormikHelpers, FormikProps } from "formik";
-import {
-  MyTextInputMUI,
-  MyCheckboxMUI,
-} from "../components/common/FormControls/FormControls";
-import { loginValidation } from "../utils/validators/validators";
+import { MyCheckboxMUI } from "../components/common/FormControls/CheckboxMUI";
+import { MyTextInputMUI } from "../components/common/FormControls/TextInputMUI";
+import { loginValidationSchema } from "../utils/validators/validators";
 import s from "../components/common/FormControls/FormControls.module.css";
 import { Box, Button, Typography } from "@mui/material";
 
@@ -34,10 +32,10 @@ const LoginForm: React.FC<PropsType> = ({ onSubmit, captchaUrl }) => {
         } as ValuesType
       }
       onSubmit={onSubmit}
-      validationSchema={loginValidation}
+      validationSchema={loginValidationSchema}
       context={{ captchaUrl }}
     >
-      {({ isSubmitting, status, setStatus }: FormikProps<ValuesType>) => (
+      {({ isSubmitting, status, setStatus }) => (
         <Form
           onInput={() => {
             if (status) setStatus(null);

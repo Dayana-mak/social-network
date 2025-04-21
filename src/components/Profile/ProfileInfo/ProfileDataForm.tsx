@@ -1,13 +1,7 @@
 import { Form, Formik } from "formik";
-import {
-  MyCheckboxMUI,
-  MyCheckbox,
-  MyTextarea,
-  MyTextareaMUI,
-  MyTextInput,
-  MyTextInputMUI,
-} from "../../common/FormControls/FormControls";
-import s from "./ProfileInfo.module.css";
+import { MyTextareaMUI } from "../../common/FormControls/TextareaMUI";
+import { MyCheckboxMUI } from "../../common/FormControls/CheckboxMUI";
+import { MyTextInputMUI } from "../../common/FormControls/TextInputMUI";
 import { ContactsType, ProfileType } from "../../../types/types";
 import {
   Box,
@@ -18,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { getContactIcon } from "./ProfileData";
+import { profileValidationSchema } from "../../../utils/validators/validators";
 
 export type ProfileDataFormValuesType = {
   fullName: string;
@@ -65,6 +60,7 @@ const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       enableReinitialize={true}
+      validationSchema={profileValidationSchema}
     >
       {({ isSubmitting, values }) => (
         <Form>
@@ -86,8 +82,10 @@ const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
             <MyTextareaMUI
               name="aboutMe"
               label="About me"
+              type="text"
               placeholder="Write about you"
               minRows={2}
+              showErrorEmmidiately={true}
             />
           </Box>
           <Box mb={1} display="flex" flexDirection={"column"}>
@@ -100,6 +98,7 @@ const ProfileDataForm: React.FC<PropsType> = ({ profile, onSubmit }) => {
               type="text"
               placeholder="Enter your professional skills"
               minRows={2}
+              showErrorEmmidiately={true}
             />
           </Box>
           <Divider sx={{ my: 2 }} />
