@@ -16,6 +16,7 @@ import Layout from "./Layout";
 
 type MapStatePropsType = {
   initialized: boolean;
+  isAuth: boolean;
 };
 
 type MapDispatchPropsType = {
@@ -37,7 +38,16 @@ class App extends Component<PropsType> {
     return (
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Navigate to="profile/" replace />} />
+          <Route
+            path="/"
+            element={
+              this.props.isAuth ? (
+                <Navigate to="/profile" replace />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
           <Route path="profile/:userId?" element={<ProfileContainer />} />
           <Route path="users/" element={<UsersContainer />} />
           <Route path="settings/" element={<Settings />} />
@@ -51,6 +61,7 @@ class App extends Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
   initialized: state.app.initialized,
+  isAuth: state.auth.isAuth,
 });
 
 export default compose<React.ComponentType>(
