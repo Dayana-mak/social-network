@@ -55,9 +55,35 @@ const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
         justifyContent: "center",
       }}
     >
-      <Box sx={{mt:2}}>
-        <Typography variant={"h3"} textAlign={"center"} mb={2}>Login</Typography>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: 400,
+          px: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant={"h4"} textAlign="center" mb={2}>
+          Login
+        </Typography>
         <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+        <Paper elevation={2}
+          sx={{
+            mt: 3,
+            p: 2,
+            bgcolor: "secondary.main",
+            width: "100%",
+          }}>
+          <Typography variant="subtitle1" fontWeight={600} mb={1}>Test account</Typography>
+          <Typography variant="body2">
+            <strong>Email:</strong> free@samuraijs.com
+          </Typography>
+          <Typography variant="body2">
+            <strong>Password:</strong> free
+          </Typography>
+        </Paper>
       </Box>
     </Paper>
   );
