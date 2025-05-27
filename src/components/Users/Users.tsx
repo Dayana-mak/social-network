@@ -1,32 +1,47 @@
 import { Box, Paper } from "@mui/material";
-import { UserType } from "../../types/types";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import Preloader from "../common/Preloader";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsLoading,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+} from "../../redux/user-selectors";
+import { follow, requestUsers, unfollow } from "../../redux/users-reducer";
+import { AppDispatchType } from "../../redux/redux-store";
+import { useEffect } from "react";
 
-type PropsType = {
-  totalUsersCount: number;
-  pageSize: number;
-  currentPage: number;
-  isLoading: boolean;
-  onPageChange: (pageNumber: number) => void;
-  followingInProgress: Array<number>;
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
-  users: Array<UserType>;
-};
 
-const Users: React.FC<PropsType> = ({
-  totalUsersCount,
-  pageSize,
-  currentPage,
-  onPageChange,
-  followingInProgress,
-  follow,
-  unfollow,
-  users,
-  isLoading,
-}) => {
+const UsersPage: React.FC = () => {
+  const users = useSelector(getUsers);
+  const totalUsersCount = useSelector(getTotalUsersCount);
+  const pageSize = useSelector(getPageSize);
+  const currentPage = useSelector(getCurrentPage);
+  const isLoading = useSelector(getIsLoading);
+  const followingInProgress = useSelector(getFollowingInProgress);
+
+  const dispatch: AppDispatchType = useDispatch();
+
+  useEffect(() => {
+    dispatch(requestUsers(currentPage, pageSize))
+  }, []);
+
+  const onPageChange = (pageNum: number): void => {
+    dispatch(requestUsers(pageNum, pageSize))
+  };
+
+  const followUser = (userId: number): void => {
+    dispatch(follow(userId))
+  }
+
+  const unfollowUser = (userId: number): void => {
+    dispatch(unfollow(userId))
+  }
+
   return (
     <Paper sx={{ p: 2, width: "100%", height: "100%" }}>
       <Box sx={{ mb: 2, display: "flex", justifyContent: "center" }}>
@@ -54,8 +69,8 @@ const Users: React.FC<PropsType> = ({
               user={user}
               key={user.id}
               followingInProgress={followingInProgress}
-              unfollow={unfollow}
-              follow={follow}
+              unfollow={unfollowUser}
+              follow={followUser}
             />
           ))
         )}
@@ -64,4 +79,4 @@ const Users: React.FC<PropsType> = ({
   );
 };
 
-export default Users;
+export default UsersPage;

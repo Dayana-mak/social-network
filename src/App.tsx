@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Navigate, Routes } from "react-router-dom";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
+
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import LoginPage from "./Login/Login";
 import { Component } from "react";
@@ -13,6 +13,7 @@ import withRouter from "./hoc/withRouter";
 import { compose } from "redux";
 import { AppStateType } from "./redux/redux-store";
 import Layout from "./Layout";
+import UsersPage from "./components/Users/Users";
 
 type MapStatePropsType = {
   initialized: boolean;
@@ -49,7 +50,7 @@ class App extends Component<PropsType> {
             }
           />
           <Route path="profile/:userId?" element={<ProfileContainer />} />
-          <Route path="users/" element={<UsersContainer />} />
+          <Route path="users/" element={<UsersPage />} />
           <Route path="settings/" element={<Settings />} />
           <Route path="login/" element={<LoginPage />} />
           <Route path="dialogs/:dialogId?" element={<DialogsContainer />} />
