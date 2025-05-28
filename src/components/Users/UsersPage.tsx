@@ -10,7 +10,7 @@ import {
   getPageSize,
   getTotalUsersCount,
   getUsers,
-} from "../../redux/user-selectors";
+} from "../../redux/selectors/user-selectors";
 import { follow, requestUsers, unfollow } from "../../redux/users-reducer";
 import { AppDispatchType } from "../../redux/redux-store";
 import { useEffect } from "react";

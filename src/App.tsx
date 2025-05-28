@@ -4,7 +4,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import LoginPage from "./Login/Login";
+import { LoginPage } from "./LogiPage/LoginPage";
 import { Component } from "react";
 import { connect } from "react-redux";
 import Preloader from "./components/common/Preloader";
@@ -13,7 +13,7 @@ import withRouter from "./hoc/withRouter";
 import { compose } from "redux";
 import { AppStateType } from "./redux/redux-store";
 import Layout from "./Layout";
-import UsersPage from "./components/Users/Users";
+import UsersPage from "./components/Users/UsersPage";
 
 type MapStatePropsType = {
   initialized: boolean;

@@ -1,10 +1,11 @@
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/auth-reducer";
 import LoginForm from "./LoginForm";
 import { Navigate } from "react-router-dom";
-import { AppStateType } from "../redux/redux-store";
 import { FormikHelpers } from "formik";
 import { Box, Paper, Typography } from "@mui/material";
+import { getCaptchaUrl, getIsAuth } from "../redux/selectors/auth-selectors";
+import { AppDispatchType } from "../redux/redux-store";
 
 type LoginFormValues = {
   email: string;
@@ -13,29 +14,18 @@ type LoginFormValues = {
   captcha: string;
 };
 
-type MapStatePropsType = {
-  isAuth: boolean;
-  captchaUrl: string | null;
-};
+export const LoginPage: React.FC = () => {
+  const isAuth = useSelector(getIsAuth);
+  const captchaUrl = useSelector(getCaptchaUrl);
 
-type MapDispatchPropsType = {
-  login: (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha: string
-  ) => Promise<string | null>;
-};
+  const dispatch: AppDispatchType = useDispatch();
 
-type PropsType = MapStatePropsType & MapDispatchPropsType;
-
-const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
   const onSubmit = async (
     values: LoginFormValues,
     { setSubmitting, setStatus, setFieldValue }: FormikHelpers<LoginFormValues>
   ): Promise<void> => {
     const { email, password, rememberMe, captcha } = values;
-    const errorMessage = await login(email, password, rememberMe, captcha);
+    const errorMessage = await dispatch(login(email, password, rememberMe, captcha));
     if (errorMessage) {
       setStatus(errorMessage);
       setFieldValue("captcha", "");
@@ -69,14 +59,18 @@ const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
           Login
         </Typography>
         <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
-        <Paper elevation={2}
+        <Paper
+          elevation={2}
           sx={{
             mt: 3,
             p: 2,
             bgcolor: "secondary.main",
             width: "100%",
-          }}>
-          <Typography variant="subtitle1" fontWeight={600} mb={1}>Test account</Typography>
+          }}
+        >
+          <Typography variant="subtitle1" fontWeight={600} mb={1}>
+            Test account
+          </Typography>
           <Typography variant="body2">
             <strong>Email:</strong> free@samuraijs.com
           </Typography>
@@ -89,9 +83,3 @@ const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
   );
 };
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  isAuth: state.auth.isAuth,
-  captchaUrl: state.auth.captchaUrl,
-});
-
-export default connect(mapStateToProps, { login })(Login);
