@@ -1,18 +1,31 @@
 import React from "react";
 import Post from "./Post/Post";
 import AddPostForm, { AddPostFormValuesType } from "./AddPostForm/AddPostForm";
-import { PostType, ProfileType } from "../../../types/types";
 import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getPostsSelector,
+  getUserProfileSelector,
+} from "../../../redux/selectors/profile-selectors";
+import { profileActions } from "../../../redux/profile-reducer";
 
 type PropsType = {
-  posts: Array<PostType>;
-  addPost: (newPostText: string) => void;
-  toggleLike: (postId: number) => void;
-  profile: ProfileType | null;
   isOwner: boolean;
 };
 
-const MyPosts: React.FC<PropsType> = ({ posts, addPost, profile, isOwner, toggleLike}) => {
+const MyPosts: React.FC<PropsType> = ({ isOwner }) => {
+  const dispatch = useDispatch();
+  const posts = useSelector(getPostsSelector);
+  const profile = useSelector(getUserProfileSelector);
+
+  const addNewPost = (values: AddPostFormValuesType) => {
+    dispatch(profileActions.addPost(values.newPostText));
+  };
+
+  const toggleLikeHandler = (postId: number) => {
+    dispatch(profileActions.toggleLike(postId));
+  };
+
   const postsList = posts
     .slice()
     .reverse()
@@ -23,13 +36,9 @@ const MyPosts: React.FC<PropsType> = ({ posts, addPost, profile, isOwner, toggle
         likesCount={post.likesCount}
         isLiked={post.isLiked}
         profile={profile}
-        onToggleLike={() => toggleLike(post.id)}
+        onToggleLike={() => toggleLikeHandler(post.id)}
       />
     ));
-
-  const addNewPost = (values: AddPostFormValuesType) => {
-    addPost(values.newPostText);
-  };
 
   return (
     <Box>
