@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Navigate, Routes } from "react-router-dom";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -14,6 +13,7 @@ import { compose } from "redux";
 import { AppStateType } from "./redux/redux-store";
 import Layout from "./Layout";
 import UsersPage from "./components/Users/UsersPage";
+import ProfilePage from "./components/Profile/ProfilePage";
 
 type MapStatePropsType = {
   initialized: boolean;
@@ -49,7 +49,7 @@ class App extends Component<PropsType> {
               )
             }
           />
-          <Route path="profile/:userId?" element={<ProfileContainer />} />
+          <Route path="profile/:userId?" element={<ProfilePage />} />
           <Route path="users/" element={<UsersPage />} />
           <Route path="settings/" element={<Settings />} />
           <Route path="login/" element={<LoginPage />} />
