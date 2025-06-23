@@ -5,26 +5,37 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import Preloader from "../common/Preloader";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile, getUserStatus } from "../../redux/selectors/profile-selectors";
+import { AppDispatchType } from "../../redux/redux-store";
+import { updateUserStatus } from "../../redux/profile-reducer";
 
 type PropsType = {
-  profile: ProfileType;
-  status: string;
-  updateUserStatus: (status: string) => void;
   savePhoto: (file: File) => void;
   saveProfile: (profile: ProfileType) => void;
   isOwner: boolean;
 };
+
 const Profile: React.FC<PropsType> = (props) => {
-  if (!props.profile) {
+  const profile = useSelector(getUserProfile);
+  const status = useSelector(getUserStatus);
+
+  const dispatch: AppDispatchType = useDispatch();
+
+  const updateUserStatusF = (status: string) => {
+    dispatch(updateUserStatus(status));
+  }
+
+  if (!profile) {
     return <Preloader />;
   }
 
   return (
     <Box>
       <ProfileHeader
-        profile={props.profile}
-        status={props.status}
-        updateUserStatus={props.updateUserStatus}
+        profile={profile}
+        status={status}
+        updateUserStatus={updateUserStatusF}
         isOwner={props.isOwner}
         savePhoto={props.savePhoto}
       />
@@ -32,7 +43,7 @@ const Profile: React.FC<PropsType> = (props) => {
           <Grid container spacing={2}>
             <Grid size={{xs: 12, md: 6}}>
               <ProfileInfo
-                profile={props.profile}
+                profile={profile}
                 saveProfile={props.saveProfile}
                 isOwner={props.isOwner}
               />

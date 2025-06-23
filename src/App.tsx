@@ -4,7 +4,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import { LoginPage } from "./LogiPage/LoginPage";
+import { LoginPage } from "./LoginPage/LoginPage";
 import { Component } from "react";
 import { connect } from "react-redux";
 import Preloader from "./components/common/Preloader";

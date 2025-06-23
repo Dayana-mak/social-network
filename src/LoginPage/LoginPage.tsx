@@ -1,4 +1,4 @@
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/auth-reducer";
 import LoginForm from "./LoginForm";
 import { Navigate } from "react-router-dom";

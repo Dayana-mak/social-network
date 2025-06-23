@@ -27,8 +27,8 @@ const UsersPage: React.FC = () => {
   const dispatch: AppDispatchType = useDispatch();
 
   useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize))
-  }, []);
+    dispatch(requestUsers(currentPage, pageSize));
+  }, [dispatch, currentPage, pageSize]);
 
   const onPageChange = (pageNum: number): void => {
     dispatch(requestUsers(pageNum, pageSize))
