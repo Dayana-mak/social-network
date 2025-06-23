@@ -1,73 +1,57 @@
-import "./App.css";
+import { useEffect } from "react";
 import { Route, Navigate, Routes } from "react-router-dom";
-import Settings from "./components/Settings/Settings";
-import { LoginPage } from "./LoginPage/LoginPage";
-import { Component } from "react";
-import { connect } from "react-redux";
-import Preloader from "./components/common/Preloader";
+import { useDispatch, useSelector } from "react-redux";
+
 import { initialize } from "./redux/app-reducer";
-import withRouter from "./hoc/withRouter";
-import { compose } from "redux";
-import { AppStateType } from "./redux/redux-store";
+import { AppDispatchType } from "./redux/redux-store";
+import { getIsAuth } from "./redux/selectors/auth-selectors";
+import { getInitialized } from "./redux/selectors/app-selectors";
+
 import Layout from "./Layout";
-import UsersPage from "./components/Users/UsersPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import DialogsPage from "./components/Dialogs/DialogsPage";
+import UsersPage from "./components/Users/UsersPage";
+import Settings from "./components/Settings/Settings";
+import { LoginPage } from "./LoginPage/LoginPage";
+import Preloader from "./components/common/Preloader";
 
-type MapStatePropsType = {
-  initialized: boolean;
-  isAuth: boolean;
-};
+import "./App.css";
 
-type MapDispatchPropsType = {
-  initialize: () => void;
-};
+const App: React.FC = () => {
+  const dispatch: AppDispatchType = useDispatch();
 
-type PropsType = MapStatePropsType & MapDispatchPropsType;
+  const initialized = useSelector(getInitialized);
+  const isAuth = useSelector(getIsAuth);
 
-class App extends Component<PropsType> {
-  componentDidMount() {
-    this.props.initialize();
+  useEffect(() => {
+    dispatch(initialize());
+  }, [dispatch]);
+
+  if (!initialized) {
+    return <Preloader />;
   }
 
-  render() {
-    if (!this.props.initialized) {
-      return <Preloader />;
-    }
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          path="/"
+          element={
+            isAuth ? (
+              <Navigate to="/profile" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route path="profile/:userId?" element={<ProfilePage />} />
+        <Route path="users/" element={<UsersPage />} />
+        <Route path="settings/" element={<Settings />} />
+        <Route path="login/" element={<LoginPage />} />
+        <Route path="dialogs/:dialogId?" element={<DialogsPage />} />
+      </Route>
+    </Routes>
+  );
+};
 
-    return (
-      <Routes>
-        <Route element={<Layout />}>
-          <Route
-            path="/"
-            element={
-              this.props.isAuth ? (
-                <Navigate to="/profile" replace />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            }
-          />
-          <Route path="profile/:userId?" element={<ProfilePage />} />
-          <Route path="users/" element={<UsersPage />} />
-          <Route path="settings/" element={<Settings />} />
-          <Route path="login/" element={<LoginPage />} />
-          <Route path="dialogs/:dialogId?" element={<DialogsPage />} />
-        </Route>
-      </Routes>
-    );
-  }
-}
-
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  initialized: state.app.initialized,
-  isAuth: state.auth.isAuth,
-});
-
-export default compose<React.ComponentType>(
-  connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(
-    mapStateToProps,
-    { initialize }
-  ),
-  withRouter
-)(App);
+export default App;
