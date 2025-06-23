@@ -9,3 +9,7 @@ export const getUserStatusSelector = (state: AppStateType) => {
 }
 
 export const getPostsSelector = (state: AppStateType) => state.profilePage.posts;
+
+export const getProfileSmallAvatarSelector = (state: AppStateType) => {
+  return state.profilePage.profile?.photos.small;
+}
