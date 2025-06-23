@@ -1,8 +1,6 @@
 import "./App.css";
 import { Route, Navigate, Routes } from "react-router-dom";
 import Settings from "./components/Settings/Settings";
-
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { Component } from "react";
 import { connect } from "react-redux";
@@ -14,6 +12,7 @@ import { AppStateType } from "./redux/redux-store";
 import Layout from "./Layout";
 import UsersPage from "./components/Users/UsersPage";
 import ProfilePage from "./components/Profile/ProfilePage";
+import DialogsPage from "./components/Dialogs/DialogsPage";
 
 type MapStatePropsType = {
   initialized: boolean;
@@ -53,7 +52,7 @@ class App extends Component<PropsType> {
           <Route path="users/" element={<UsersPage />} />
           <Route path="settings/" element={<Settings />} />
           <Route path="login/" element={<LoginPage />} />
-          <Route path="dialogs/:dialogId?" element={<DialogsContainer />} />
+          <Route path="dialogs/:dialogId?" element={<DialogsPage />} />
         </Route>
       </Routes>
     );
