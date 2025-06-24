@@ -2,23 +2,23 @@ import { Avatar, Box, Paper, Typography } from "@mui/material";
 import { Link as MuiLink } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { useParams } from "react-router-dom";
 import defaultAvatar from "../../../assets/images/default-avatar.svg";
 import MessageItem from "../MessageItem/MessageItem";
 import AddMessageForm from "../AddMessageForm/AddMessageForm";
 import { DialogType } from "../../../types/types";
+import { useDispatch } from "react-redux";
+import { dialogsActions } from "../../../redux/dialogs-reducer";
 
 type PropsType = {
   dialog: DialogType | undefined;
-  sendMessage: (dialogId: number, text: string) => void;
+  dialogId: number
 };
 
-const Chat: React.FC<PropsType> = ({ sendMessage, dialog }) => {
-  const { dialogId } = useParams<{ dialogId: string }>();
-  const id = Number(dialogId);
+const Chat: React.FC<PropsType> = ({ dialog, dialogId }) => {
+  const dispatch = useDispatch();
 
   const handleSend = (dialogId: number, values: { newMessageText: string }) => {
-    sendMessage(dialogId, values.newMessageText);
+    dispatch(dialogsActions.sendMessage(dialogId, values.newMessageText));
   };
 
   console.log("Current dialog messages:", dialog?.messages);
@@ -88,7 +88,7 @@ const Chat: React.FC<PropsType> = ({ sendMessage, dialog }) => {
         ))}
       </Box>
       <Box sx={{ borderTop: "1px solid #dce1e6", p: 2 }}>
-        <AddMessageForm dialogId={id} onSubmit={handleSend} />
+        <AddMessageForm dialogId={dialogId} onSubmit={handleSend} />
       </Box>
     </Paper>
   );

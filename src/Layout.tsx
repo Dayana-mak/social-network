@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import HeaderWrapper from "./components/Header/HeaderWrapper";
 import Navbar from "./components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const Layout = () => {
         }}
       >
         <Box gridArea="header">
-          <HeaderContainer />
+          <HeaderWrapper />
         </Box>
         <Box
           gridArea="nav"
