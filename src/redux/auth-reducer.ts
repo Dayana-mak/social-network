@@ -1,8 +1,5 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import {
-  ResultCodeForCaptchaEnum,
-  ResultCodesEnum,
-} from "../api/api";
+import { ResultCodeForCaptchaEnum, ResultCodesEnum } from "../api/api";
 import { securityAPI } from "../api/security-api";
 import { authAPI } from "../api/auth-api";
 import { AppStateType, InferActionsType } from "./redux-store";
@@ -68,6 +65,12 @@ type ThunkType<ReturnType = void> = ThunkAction<
 
 export const getAuthUserData =
   (): ThunkType<Promise<void>> => async (dispatch: DispatchType) => {
+    const token = localStorage.getItem("sn-token");
+
+    if (!localStorage.getItem("sn-token")) {
+      return;
+    }
+
     const data = await authAPI.getMe();
 
     if (data.resultCode === ResultCodesEnum.Success) {
@@ -87,6 +90,9 @@ export const login =
     const data = await authAPI.login(email, password, rememberMe, captcha);
 
     if (data.resultCode === ResultCodesEnum.Success) {
+      if ("token" in data.data) {
+        localStorage.setItem("sn-token", data.data.token);
+      }
       dispatch(getAuthUserData());
       return null;
     } else {
@@ -104,6 +110,7 @@ export const logout =
     const data = await authAPI.logout();
 
     if (data.resultCode === ResultCodesEnum.Success) {
+      localStorage.removeItem("sn-token");
       dispatch(authActions.setAuthUserData(null, null, null, false));
     }
   };
