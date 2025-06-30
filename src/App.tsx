@@ -11,8 +11,7 @@ import Layout from "./Layout";
 import ProfilePage from "./components/Profile/ProfilePage";
 import DialogsPage from "./components/Dialogs/DialogsPage";
 import UsersPage from "./components/Users/UsersPage";
-import Settings from "./components/Settings/Settings";
-import { LoginPage } from "./LoginPage/LoginPage";
+import { LoginPage } from "./components/LoginPage/LoginPage";
 import Preloader from "./components/common/Preloader";
 
 import "./App.css";
@@ -46,7 +45,6 @@ const App: React.FC = () => {
         />
         <Route path="profile/:userId?" element={<ProfilePage />} />
         <Route path="users/" element={<UsersPage />} />
-        <Route path="settings/" element={<Settings />} />
         <Route path="login/" element={<LoginPage />} />
         <Route path="dialogs/:dialogId?" element={<DialogsPage />} />
       </Route>

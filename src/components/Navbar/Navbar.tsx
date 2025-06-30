@@ -10,13 +10,11 @@ import { NavLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 const navItems = [
   { label: "Profile", to: "/profile", icon: <PersonIcon /> },
   { label: "Messages", to: "/dialogs", icon: <ForumOutlinedIcon /> },
   { label: "Find users", to: "/users", icon: <GroupOutlinedIcon /> },
-  { label: "Settings", to: "/settings", icon: <SettingsOutlinedIcon /> },
 ];
 
 type PropsType = {

@@ -2,7 +2,7 @@ ul li {
   list-style: none;
 }
 
-.app-wrapper {
+/* .app-wrapper {
   display: grid;
   margin: 0 auto;
   width: 1400px;
@@ -16,7 +16,7 @@ ul li {
 .app-wrapper-content {
   grid-area: content;
   background-color: cornflowerblue;
-}
+} */
 
 a {
   text-decoration: none;

@@ -10,7 +10,7 @@ const Layout = () => {
         display: "flex",
         justifyContent: "center",
         bgcolor: "background.default",
-        py: 2
+        py: 2,
       }}
     >
       <Box
@@ -18,22 +18,23 @@ const Layout = () => {
           display: "grid",
           width: "100%",
           maxWidth: "1200px",
-          gridTemplateAreas: `
-            "header header"
-            "nav main"`,
+          gridTemplateAreas: {
+            xs: `"header"
+                  "main"`,
+            md: `"header header"
+                  "nav main"`,
+          },
           gridTemplateColumns: { xs: "1fr", md: "250px 1fr" },
           gridTemplateRows: "64px 1fr",
-          gap: 2,
+          gap: { xs: 0, md: 2 },
           minHeight: "100vh",
         }}
       >
         <Box gridArea="header">
           <HeaderWrapper />
         </Box>
-        <Box
-          gridArea="nav"
-        >
-            <Navbar />
+        <Box gridArea="nav">
+          <Navbar />
         </Box>
         <Box
           gridArea="main"

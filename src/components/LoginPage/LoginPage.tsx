@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/auth-reducer";
+import { login } from "../../redux/auth-reducer";
 import LoginForm from "./LoginForm";
 import { Navigate } from "react-router-dom";
 import { FormikHelpers } from "formik";
 import { Box, Paper, Typography } from "@mui/material";
-import { getCaptchaUrl, getIsAuth } from "../redux/selectors/auth-selectors";
-import { AppDispatchType } from "../redux/redux-store";
+import { getCaptchaUrl, getIsAuth } from "../../redux/selectors/auth-selectors";
+import { AppDispatchType } from "../../redux/redux-store";
 
 type LoginFormValues = {
   email: string;

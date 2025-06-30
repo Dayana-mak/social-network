@@ -1,7 +1,7 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import { MyCheckboxMUI } from "../components/common/FormControls/CheckboxMUI";
-import { MyTextInputMUI } from "../components/common/FormControls/TextInputMUI";
-import { loginValidationSchema } from "../utils/validators/validators";
+import { MyCheckboxMUI } from "../common/FormControls/CheckboxMUI";
+import { MyTextInputMUI } from "../common/FormControls/TextInputMUI";
+import { loginValidationSchema } from "../../utils/validators/validators";
 import { Box, Button, Typography } from "@mui/material";
 
 type ValuesType = {
